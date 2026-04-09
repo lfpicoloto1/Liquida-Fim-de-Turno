@@ -1,0 +1,10 @@
+# Use quando o serviço no Railway tem Root Directory = "front".
+# O ficheiro na raiz do monorepo (`/railway.toml`) não é aplicado a esse serviço
+# a menos que configures em Settings → Config as Code o path absoluto `/railway.toml`.
+#
+# Pre-deploy aplica o schema (não corre durante o build Docker).
+[deploy]
+preDeployCommand = "npm run db:push:deploy"
+healthcheckPath = "/api/health"
+healthcheckTimeout = 30
+restartPolicyType = "ON_FAILURE"
