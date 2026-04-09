@@ -204,7 +204,7 @@ export function SaveSuccessCelebration({
           className="xepa-celebration-cta"
           type="button"
           variant="filled"
-          color="secondary"
+          color="primary"
           size="lg"
           onClick={() => onClose()}
         >

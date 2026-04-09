@@ -1,20 +1,11 @@
 @import "@aiqfome-org/geraldo-ui/tokens.css";
 
 :root {
-  color-scheme: light dark;
+  color-scheme: light;
   /* Next.js `next/font` + tokens Geraldo (Ubuntu) */
   --geraldo-font-family: var(--font-ubuntu), "Ubuntu", ui-sans-serif, system-ui, sans-serif;
-  --xepa-purple-deep: #3b0764;
-  --xepa-purple-mid: #6b21a8;
-  --xepa-magenta: #db2777;
-  --xepa-magenta-hot: #f472b6;
-  --xepa-lime: #4ade80;
-  --xepa-lime-glow: #86efac;
-  --xepa-amber: #fbbf24;
-  --xepa-orange: #fb923c;
-  --xepa-card-light: #faf5ff;
-  --xepa-shadow-widget: 0 4px 24px rgba(59, 7, 100, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.65);
-  --xepa-shadow-widget-hover: 0 8px 32px rgba(219, 39, 119, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.75);
+  --xepa-shadow-widget: 0 2px 12px rgba(0, 0, 0, 0.06);
+  --xepa-shadow-widget-hover: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 body {
@@ -38,14 +29,8 @@ body {
 .xepa-dashboard {
   min-height: 100vh;
   padding: var(--geraldo-space-5) var(--geraldo-space-4) var(--geraldo-space-5);
-  background-color: var(--xepa-purple-deep);
-  background-image:
-    radial-gradient(ellipse 120% 80% at 50% -30%, rgba(219, 39, 119, 0.45), transparent 55%),
-    radial-gradient(ellipse 60% 40% at 100% 50%, rgba(107, 33, 168, 0.5), transparent),
-    radial-gradient(ellipse 50% 35% at 0% 80%, rgba(74, 222, 128, 0.12), transparent),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72' viewBox='0 0 72 72'%3E%3Cg fill='none' opacity='.14'%3E%3Cpath fill='%23fbbf24' d='M8 14 L18 28 L4 28 Z'/%3E%3Ccircle cx='48' cy='16' r='6' fill='%23fb923c'/%3E%3Cpath fill='%23a78bfa' d='M52 44 L64 58 L40 58 Z'/%3E%3Ccircle cx='22' cy='52' r='5' fill='%234ade80'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: auto, auto, auto, 72px 72px;
-  color: #fafafa;
+  background: var(--geraldo-color-surface-muted, #f5f5f5);
+  color: var(--geraldo-color-text, #252525);
 }
 
 .xepa-dashboard-inner {
@@ -78,9 +63,9 @@ body {
 }
 
 .xepa-toast-fixed--success {
-  background: linear-gradient(135deg, #15803d, #22c55e);
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: var(--geraldo-color-success-600, #1c752e);
+  color: var(--geraldo-color-neutral-0, #fff);
+  border: 1px solid var(--geraldo-color-success-900, #063e11);
 }
 
 .xepa-toast-fixed--error {
@@ -95,8 +80,7 @@ body {
   font-size: var(--geraldo-text-h3-size);
   line-height: var(--geraldo-text-h3-line);
   font-weight: var(--geraldo-font-weight-bold);
-  color: #fef3c7;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+  color: var(--geraldo-color-text-secondary, #6d6f73);
 }
 
 /* —— Login (mesmo clima do dashboard) —— */
@@ -128,11 +112,11 @@ body {
   position: relative;
   width: 100%;
   height: clamp(280px, min(560px, 72vw), 560px);
-  border-radius: 20px;
+  border-radius: var(--geraldo-radius-box-outer, 16px);
   overflow: hidden;
-  background: linear-gradient(160deg, #1e0a3a 0%, #312e81 100%);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
+  background: var(--geraldo-color-surface, #fff);
+  border: 1px solid var(--geraldo-color-border, #d3d3d3);
+  box-shadow: var(--xepa-shadow-widget);
 }
 
 .xepa-login-carousel-slide {
@@ -170,17 +154,17 @@ body {
   padding: 0;
   border: none;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.35);
+  background: var(--geraldo-color-neutral-300, #d3d3d3);
   cursor: pointer;
   transition: transform 0.15s ease, background 0.15s ease;
 }
 
 .xepa-login-carousel-dot:hover {
-  background: rgba(255, 255, 255, 0.55);
+  background: var(--geraldo-color-neutral-400, #bababa);
 }
 
 .xepa-login-carousel-dot--active {
-  background: #fef08a;
+  background: var(--geraldo-color-primary-600, #580f78);
   transform: scale(1.25);
 }
 
@@ -201,32 +185,8 @@ body {
   margin-top: 0.35rem;
 }
 
-.xepa-login-primary::part(button) {
-  background: linear-gradient(180deg, #fbbf24, #ea580c) !important;
-  color: #1c1917 !important;
-  border: 2px solid rgba(0, 0, 0, 0.12) !important;
-  font-weight: 700 !important;
+.xepa-login-actions geraldo-button {
   min-height: 3.1rem;
-  box-shadow:
-    0 4px 0 #9a3412,
-    0 12px 28px rgba(0, 0, 0, 0.35) !important;
-}
-
-.xepa-login-primary::part(button):hover {
-  filter: brightness(1.05);
-}
-
-.xepa-login-dev::part(button) {
-  background: #fff !important;
-  color: #5b21b6 !important;
-  border: 2px solid #7c3aed !important;
-  min-height: 3.1rem;
-  font-weight: 600 !important;
-  box-shadow: 0 4px 14px rgba(91, 33, 182, 0.15) !important;
-}
-
-.xepa-login-dev::part(button):hover {
-  background: #faf5ff !important;
 }
 
 .xepa-login-footnote {
@@ -242,21 +202,11 @@ body {
   display: block;
   padding: 1.35rem 1.5rem 1.35rem 1.75rem;
   margin-bottom: 1.5rem;
-  border-radius: 28px;
-  background: linear-gradient(135deg, #581c87 0%, #7c3aed 38%, #db2777 100%);
-  box-shadow:
-    0 12px 40px rgba(0, 0, 0, 0.35),
-    inset 0 2px 0 rgba(255, 255, 255, 0.2),
-    inset 0 -3px 12px rgba(0, 0, 0, 0.15);
+  border-radius: var(--geraldo-radius-box-outer, 16px);
+  background: var(--geraldo-color-primary-bg, #f9edff);
+  border: 1px solid var(--geraldo-color-neutral-200, #dedede);
+  box-shadow: var(--xepa-shadow-widget);
   overflow: hidden;
-}
-
-.xepa-hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 70% 20%, rgba(255, 255, 255, 0.12), transparent 45%);
-  pointer-events: none;
 }
 
 .xepa-hero-main {
@@ -279,7 +229,7 @@ body {
   font-size: clamp(var(--geraldo-text-h3-size), 3.5vw, var(--geraldo-text-h2-size));
   font-weight: var(--geraldo-font-weight-bold);
   line-height: var(--geraldo-text-h2-line);
-  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.25);
+  color: var(--geraldo-color-primary-900, #36036c);
 }
 
 .xepa-hero-sub {
@@ -288,7 +238,7 @@ body {
   font-size: var(--geraldo-text-body-size);
   line-height: var(--geraldo-text-body-line);
   font-weight: var(--geraldo-font-weight-regular);
-  opacity: 0.95;
+  color: var(--geraldo-color-text-secondary, #6d6f73);
   max-width: 36ch;
 }
 
@@ -300,9 +250,10 @@ body {
   position: relative;
   z-index: 2;
   padding: 0.5rem 0.75rem;
-  border-radius: 16px;
-  background: rgba(0, 0, 0, 0.2);
-  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.2);
+  border-radius: var(--geraldo-radius-box-inner, 12px);
+  background: var(--geraldo-color-surface, #fff);
+  border: 1px solid var(--geraldo-color-border, #d3d3d3);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
   transform: scale(1.05);
   transform-origin: top right;
 }
@@ -315,27 +266,28 @@ body {
   0%,
   100% {
     box-shadow:
-      inset 0 2px 8px rgba(0, 0, 0, 0.2),
-      0 0 0 0 rgba(74, 222, 128, 0.35);
+      inset 0 1px 2px rgba(0, 0, 0, 0.04),
+      0 0 0 0 rgba(55, 199, 74, 0.2);
   }
   50% {
     box-shadow:
-      inset 0 2px 8px rgba(0, 0, 0, 0.2),
-      0 0 24px 4px rgba(74, 222, 128, 0.45);
+      inset 0 1px 2px rgba(0, 0, 0, 0.04),
+      0 0 0 3px rgba(55, 199, 74, 0.25);
   }
 }
 
 .xepa-master-switch-wrap geraldo-switch::part(label) {
-  color: #fff !important;
-  font-weight: 600;
+  color: var(--geraldo-color-text, #252525) !important;
+  font-weight: var(--geraldo-font-weight-medium, 500);
 }
 
 .xepa-hint-strip {
   margin: -0.5rem 0 1.25rem;
   padding: 0.65rem 1rem;
-  border-radius: 14px;
-  background: rgba(251, 191, 36, 0.2);
-  border: 1px solid rgba(251, 191, 36, 0.45);
+  border-radius: var(--geraldo-radius-box-inner, 12px);
+  background: var(--geraldo-color-warning-bg, #fff4d9);
+  border: 1px solid var(--geraldo-color-warning-400, #ffb300);
+  color: var(--geraldo-color-warning-900, #664c00);
   font-size: 0.92rem;
   line-height: 1.4;
 }
@@ -405,8 +357,7 @@ body {
 }
 
 .xepa-widget {
-  --geraldo-color-surface-raised: var(--xepa-card-light);
-  color: #1e1b4b;
+  color: var(--geraldo-color-text, #252525);
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease;
@@ -417,9 +368,10 @@ body {
 }
 
 .xepa-widget::part(card) {
-  border-radius: 22px !important;
+  border-radius: var(--geraldo-radius-box-outer, 16px) !important;
   box-shadow: var(--xepa-shadow-widget) !important;
-  background: linear-gradient(180deg, #fdf4ff 0%, #faf5ff 100%) !important;
+  background: var(--geraldo-color-surface, #fff) !important;
+  border: 1px solid var(--geraldo-color-border, #d3d3d3) !important;
 }
 
 .xepa-widget:hover::part(card) {
@@ -451,14 +403,12 @@ body {
 }
 
 .xepa-widget-body .muted {
-  color: #5b21b6;
-  opacity: 0.85;
+  color: var(--geraldo-color-text-secondary, #6d6f73);
 }
 
 .xepa-subtle {
   font-size: 0.88rem;
-  color: #6b21a8;
-  opacity: 0.9;
+  color: var(--geraldo-color-text-secondary, #6d6f73);
   margin: 0;
 }
 
@@ -473,10 +423,7 @@ body {
   font-size: 2.75rem;
   font-weight: 800;
   line-height: 1;
-  background: linear-gradient(135deg, #16a34a, #7c3aed);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--geraldo-color-success-600, #1c752e);
   min-width: 5rem;
   text-align: center;
 }
@@ -493,15 +440,8 @@ body {
   border-radius: 999px;
   appearance: none;
   cursor: pointer;
-  box-shadow: inset 0 2px 6px rgba(91, 33, 182, 0.2);
-  background: linear-gradient(
-    90deg,
-    #4ade80 0%,
-    #a3e635 25%,
-    #fbbf24 55%,
-    #c084fc 85%,
-    #7c3aed 100%
-  );
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08);
+  background: var(--geraldo-color-neutral-200, #dedede);
   outline: none;
   transition: transform 0.15s ease;
 }
@@ -515,9 +455,9 @@ body {
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: #fff;
-  border: 3px solid #7c3aed;
-  box-shadow: 0 2px 10px rgba(124, 58, 237, 0.5);
+  background: var(--geraldo-color-surface, #fff);
+  border: 3px solid var(--geraldo-color-primary-600, #580f78);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
   cursor: grab;
 }
 
@@ -525,9 +465,9 @@ body {
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: #fff;
-  border: 3px solid #7c3aed;
-  box-shadow: 0 2px 10px rgba(124, 58, 237, 0.5);
+  background: var(--geraldo-color-surface, #fff);
+  border: 3px solid var(--geraldo-color-primary-600, #580f78);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
   cursor: grab;
 }
 
@@ -548,13 +488,13 @@ body {
   gap: 0.35rem;
   padding: 0.45rem 0.75rem;
   border-radius: 999px;
-  border: 2px solid #e9d5ff;
-  background: #fff;
-  color: #4c1d95;
+  border: var(--geraldo-border-width-2, 2px) solid var(--geraldo-color-border, #d3d3d3);
+  background: var(--geraldo-color-surface, #fff);
+  color: var(--geraldo-color-primary-600, #580f78);
   font-size: 0.88rem;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 2px 0 rgba(124, 58, 237, 0.12);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
   transition:
     transform 0.15s ease,
     border-color 0.15s ease,
@@ -566,11 +506,9 @@ body {
 }
 
 .xepa-pill[aria-pressed="true"] {
-  border-color: #db2777;
-  box-shadow:
-    0 0 0 3px rgba(219, 39, 119, 0.25),
-    0 4px 12px rgba(124, 58, 237, 0.2);
-  background: linear-gradient(180deg, #fdf4ff, #fff);
+  border-color: var(--geraldo-color-primary-400, #7b1fa2);
+  box-shadow: 0 0 0 2px var(--geraldo-color-primary-bg, #f9edff);
+  background: var(--geraldo-color-primary-bg, #f9edff);
 }
 
 .xepa-pill[aria-pressed="true"] .xepa-pill-icon {
@@ -601,17 +539,16 @@ body {
 .xepa-timeline-bar {
   height: 14px;
   border-radius: 999px;
-  background: #e9d5ff;
-  box-shadow: inset 0 2px 4px rgba(91, 33, 182, 0.15);
+  background: var(--geraldo-color-neutral-200, #dedede);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.06);
   overflow: hidden;
 }
 
 .xepa-timeline-fill {
   height: 100%;
   border-radius: 999px;
-  background: linear-gradient(90deg, var(--xepa-lime), var(--xepa-amber), var(--xepa-orange));
+  background: var(--geraldo-color-success-400, #37c74a);
   transition: width 0.25s ease;
-  box-shadow: 0 0 12px rgba(251, 146, 60, 0.5);
 }
 
 .xepa-clock-ring {
@@ -655,11 +592,10 @@ body {
 }
 
 .xepa-day-dot[aria-pressed="true"] {
-  background: linear-gradient(180deg, #4ade80, #22c55e);
-  color: #14532d;
-  box-shadow:
-    0 4px 12px rgba(34, 197, 94, 0.35),
-    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  background: var(--geraldo-color-success-bg, #c3efc9);
+  color: var(--geraldo-color-success-900, #063e11);
+  border: 1px solid var(--geraldo-color-success-400, #37c74a);
+  box-shadow: 0 2px 6px rgba(28, 117, 46, 0.15);
 }
 
 .xepa-day-ico {
@@ -674,14 +610,14 @@ body {
   line-height: var(--geraldo-text-body-line);
   padding: var(--geraldo-space-4) var(--geraldo-space-5);
   border-radius: var(--geraldo-radius-box-inner);
-  border: var(--geraldo-border-width-2) solid #ddd6fe;
-  background: #fff;
-  color: #1e1b4b;
+  border: var(--geraldo-border-width-2) solid var(--geraldo-color-border, #d3d3d3);
+  background: var(--geraldo-color-surface, #fff);
+  color: var(--geraldo-color-text, #252525);
   width: 100%;
   max-width: 100%;
   min-width: 0;
   box-sizing: border-box;
-  box-shadow: inset 0 2px 4px rgba(91, 33, 182, 0.06);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
 }
 
 .xepa-lead-row {
@@ -713,9 +649,10 @@ label.stack.xepa-lead-field {
   align-items: flex-start;
   gap: 0.65rem;
   padding: 0.55rem 0.65rem;
-  border-radius: 14px;
-  background: #fff;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 2px 8px rgba(91, 33, 182, 0.08);
+  border-radius: var(--geraldo-radius-box-inner, 12px);
+  background: var(--geraldo-color-surface-muted, #f5f5f5);
+  border: 1px solid var(--geraldo-color-border, #d3d3d3);
+  box-shadow: none;
 }
 
 .xepa-feed-line--go {
@@ -751,37 +688,7 @@ label.stack.xepa-lead-field {
 
 .xepa-fab-bar geraldo-button {
   min-height: 3.15rem;
-}
-
-/* Cores fixas via ::part — não depende do token primary roxo (evita sumir no fundo). */
-.xepa-fab-cancel::part(button) {
-  background: rgba(255, 255, 255, 0.12) !important;
-  color: #ffffff !important;
-  border: 2px solid rgba(255, 255, 255, 0.92) !important;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35) !important;
-}
-
-.xepa-fab-cancel::part(button):hover {
-  background: rgba(255, 255, 255, 0.22) !important;
-}
-
-.xepa-fab-save::part(button) {
-  background: linear-gradient(180deg, #fbbf24, #ea580c) !important;
-  color: #1c1917 !important;
-  border: 2px solid rgba(0, 0, 0, 0.12) !important;
-  font-weight: 700 !important;
-  box-shadow:
-    0 4px 0 #9a3412,
-    0 14px 36px rgba(0, 0, 0, 0.45) !important;
-}
-
-.xepa-fab-save::part(button):hover {
-  filter: brightness(1.05);
-}
-
-.xepa-fab-save::part(button):disabled {
-  opacity: 0.85;
-  filter: grayscale(0.15);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
 }
 
 @media (max-width: 540px) {
@@ -803,7 +710,7 @@ label.stack.xepa-lead-field {
   font-size: clamp(var(--geraldo-text-h3-size), 3.2vw, var(--geraldo-text-h2-size));
   font-weight: var(--geraldo-font-weight-bold);
   line-height: var(--geraldo-text-h3-line);
-  color: #4c1d95;
+  color: var(--geraldo-color-primary-900, #36036c);
   letter-spacing: -0.03em;
 }
 
@@ -826,7 +733,7 @@ label.stack.xepa-lead-field {
   margin: 0;
   padding-left: 1.1rem;
   font-size: 0.85rem;
-  color: #5b21b6;
+  color: var(--geraldo-color-text-secondary, #6d6f73);
 }
 
 .xepa-work-list li {
@@ -834,7 +741,7 @@ label.stack.xepa-lead-field {
 }
 
 .xepa-link {
-  color: #7c3aed;
+  color: var(--geraldo-color-primary-600, #580f78);
   font-weight: 600;
 }
 
@@ -843,7 +750,7 @@ label.stack.xepa-lead-field {
   padding-left: 1rem;
   font-size: 0.82rem;
   line-height: 1.45;
-  color: #5b21b6;
+  color: var(--geraldo-color-text-secondary, #6d6f73);
 }
 
 .xepa-schedule-preview li {
@@ -926,7 +833,7 @@ label.stack.xepa-lead-field {
 .xepa-celebration-dim {
   position: absolute;
   inset: 0;
-  background: rgba(15, 5, 35, 0.55);
+  background: rgba(37, 37, 37, 0.45);
   backdrop-filter: blur(2px);
 }
 
@@ -937,12 +844,11 @@ label.stack.xepa-lead-field {
   max-height: min(92vh, 720px);
   overflow: auto;
   padding: 1.35rem 1.25rem 1.5rem;
-  border-radius: 20px;
-  background: linear-gradient(165deg, #fdf4ff 0%, #fff 38%, #f0fdf4 100%);
-  color: #1e1b4b;
-  box-shadow:
-    0 24px 64px rgba(59, 7, 100, 0.45),
-    0 0 0 1px rgba(255, 255, 255, 0.65) inset;
+  border-radius: var(--geraldo-radius-box-outer, 16px);
+  background: var(--geraldo-color-surface, #fff);
+  color: var(--geraldo-color-text, #252525);
+  border: 1px solid var(--geraldo-color-border, #d3d3d3);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.18);
   text-align: center;
   animation: xepa-celebration-pop 0.45s cubic-bezier(0.22, 1.2, 0.36, 1) forwards;
 }
@@ -986,9 +892,9 @@ label.stack.xepa-lead-field {
 .xepa-celebration-title {
   margin: 0 0 0.5rem;
   font-size: clamp(1.2rem, 4.5vw, 1.45rem);
-  font-weight: 800;
+  font-weight: var(--geraldo-font-weight-bold, 700);
   line-height: 1.25;
-  color: #5b21b6;
+  color: var(--geraldo-color-primary-900, #36036c);
   text-wrap: balance;
 }
 
@@ -996,8 +902,7 @@ label.stack.xepa-lead-field {
   margin: 0 0 1rem;
   font-size: 0.95rem;
   line-height: 1.45;
-  color: #4c1d95;
-  opacity: 0.92;
+  color: var(--geraldo-color-text-secondary, #6d6f73);
   text-wrap: balance;
 }
 
@@ -1006,7 +911,7 @@ label.stack.xepa-lead-field {
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: #6b21a8;
+  color: var(--geraldo-color-text-secondary, #6d6f73);
   margin-bottom: 0.4rem;
 }
 
@@ -1042,12 +947,13 @@ label.stack.xepa-lead-field {
   width: 2.35rem;
   height: 2.35rem;
   border-radius: 10px;
-  background: linear-gradient(145deg, #7c3aed, #5b21b6);
+  background: var(--geraldo-color-primary-600, #580f78);
+  color: var(--geraldo-color-neutral-0, #fff);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.1rem;
-  box-shadow: 0 2px 8px rgba(91, 33, 182, 0.25);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
 }
 
 .xepa-aiq-preview-store-main {
@@ -1181,8 +1087,8 @@ label.stack.xepa-lead-field {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(160deg, #f9fafb, #e5e7eb);
-  border: 1px dashed #d1d5db;
+  background: var(--geraldo-color-surface-muted, #f5f5f5);
+  border: 1px dashed var(--geraldo-color-neutral-300, #d3d3d3);
 }
 
 .xepa-aiq-preview-thumb-ph-ico {
@@ -1332,7 +1238,7 @@ label.stack.xepa-lead-field {
 }
 
 .xepa-legal-back a {
-  color: #fef08a;
+  color: var(--geraldo-color-primary-600, #580f78);
   font-weight: 600;
   font-size: 0.9rem;
   text-decoration: none;
@@ -1343,12 +1249,12 @@ label.stack.xepa-lead-field {
 }
 
 .xepa-legal-doc {
-  background: #fff;
-  color: #1e1b4b;
-  border-radius: 18px;
+  background: var(--geraldo-color-surface, #fff);
+  color: var(--geraldo-color-text, #252525);
+  border-radius: var(--geraldo-radius-box-outer, 16px);
   padding: 1.5rem 1.35rem 1.65rem;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: var(--xepa-shadow-widget);
+  border: 1px solid var(--geraldo-color-border, #d3d3d3);
 }
 
 .xepa-legal-doc-header {
@@ -1361,7 +1267,7 @@ label.stack.xepa-lead-field {
   margin: 0;
   font-size: clamp(1.35rem, 4vw, 1.6rem);
   font-weight: 800;
-  color: #5b21b6;
+  color: var(--geraldo-color-primary-900, #36036c);
   line-height: 1.25;
 }
 
@@ -1375,7 +1281,7 @@ label.stack.xepa-lead-field {
   margin: 1.35rem 0 0.45rem;
   font-size: 1rem;
   font-weight: 800;
-  color: #4c1d95;
+  color: var(--geraldo-color-primary-600, #580f78);
   line-height: 1.3;
 }
 
@@ -1418,7 +1324,7 @@ label.stack.xepa-lead-field {
 }
 
 .xepa-legal-cross a {
-  color: rgba(255, 255, 255, 0.92);
+  color: var(--geraldo-color-primary-600, #580f78);
   text-decoration: none;
 }
 
@@ -1427,7 +1333,7 @@ label.stack.xepa-lead-field {
 }
 
 .xepa-legal-cross-sep {
-  color: rgba(255, 255, 255, 0.45);
+  color: var(--geraldo-color-text-muted, #bababa);
   user-select: none;
 }
 
@@ -1448,16 +1354,16 @@ label.stack.xepa-lead-field {
 }
 
 .xepa-legal-footer a {
-  color: rgba(255, 255, 255, 0.88);
+  color: var(--geraldo-color-primary-600, #580f78);
   text-decoration: none;
 }
 
 .xepa-legal-footer a:hover {
   text-decoration: underline;
-  color: #fff;
+  color: var(--geraldo-color-primary-900, #36036c);
 }
 
 .xepa-legal-footer-sep {
-  color: rgba(255, 255, 255, 0.45);
+  color: var(--geraldo-color-text-muted, #bababa);
   user-select: none;
 }

@@ -477,25 +477,11 @@ export function Home() {
                 É o mesmo login Magalu ID que você já usa com a aiqfome. Sem firula: popup, autoriza, pronto.
               </geraldo-text>
               <div className="xepa-login-actions">
-                <geraldo-button
-                  className="xepa-login-primary"
-                  type="button"
-                  variant="filled"
-                  color="secondary"
-                  size="lg"
-                  onClick={openMagalu}
-                >
+                <geraldo-button type="button" variant="filled" color="primary" size="lg" onClick={openMagalu}>
                   Entrar com Magalu ID
                 </geraldo-button>
                 {devLoginEnabled ? (
-                  <geraldo-button
-                    className="xepa-login-dev"
-                    type="button"
-                    variant="outline"
-                    color="secondary"
-                    size="lg"
-                    onClick={devLogin}
-                  >
+                  <geraldo-button type="button" variant="outline" color="primary" size="lg" onClick={devLogin}>
                     Entrar (dev)
                   </geraldo-button>
                 ) : null}
@@ -861,25 +847,10 @@ export function Home() {
         </nav>
 
         <div className="xepa-fab-bar" role="group" aria-label="Salvar ou sair">
-          <geraldo-button
-            className="xepa-fab-cancel"
-            type="button"
-            variant="outline"
-            color="secondary"
-            size="lg"
-            onClick={logout}
-          >
+          <geraldo-button type="button" variant="outline" color="primary" size="lg" onClick={logout}>
             Deixa pra lá
           </geraldo-button>
-          <geraldo-button
-            className="xepa-fab-save"
-            type="button"
-            variant="filled"
-            color="secondary"
-            size="lg"
-            loading={saving}
-            onClick={save}
-          >
+          <geraldo-button type="button" variant="filled" color="primary" size="lg" loading={saving} onClick={save}>
             Salvar descontos!
           </geraldo-button>
         </div>
