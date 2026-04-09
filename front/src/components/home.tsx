@@ -8,6 +8,7 @@ import {
   useState,
   type Ref,
 } from "react";
+import Link from "next/link";
 import { getDay } from "date-fns";
 import { toZonedTime } from "date-fns-tz";
 import { isTrustedOrigin } from "@/lib/auth/post-message";
@@ -503,6 +504,13 @@ export function Home() {
               </p>
             </div>
           </geraldo-card>
+          <nav className="xepa-legal-footer" aria-label="Documentos legais">
+            <Link href="/privacidade">Política de privacidade</Link>
+            <span className="xepa-legal-footer-sep" aria-hidden>
+              ·
+            </span>
+            <Link href="/termos">Termos de uso</Link>
+          </nav>
         </div>
       </main>
     );
@@ -839,6 +847,14 @@ export function Home() {
             </geraldo-card>
           </div>
         </div>
+
+        <nav className="xepa-legal-footer xepa-legal-footer--dashboard" aria-label="Documentos legais">
+          <Link href="/privacidade">Política de privacidade</Link>
+          <span className="xepa-legal-footer-sep" aria-hidden>
+            ·
+          </span>
+          <Link href="/termos">Termos de uso</Link>
+        </nav>
 
         <div className="xepa-fab-bar" role="group" aria-label="Salvar ou sair">
           <geraldo-button

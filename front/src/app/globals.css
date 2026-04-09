@@ -1239,3 +1239,145 @@ label.stack.xepa-lead-field {
     animation: none;
   }
 }
+
+/* —— Páginas legais (privacidade / termos) —— */
+.xepa-legal-page .xepa-legal-inner {
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: var(--geraldo-space-5) var(--geraldo-space-4) 3rem;
+}
+
+.xepa-legal-back {
+  margin-bottom: 1rem;
+}
+
+.xepa-legal-back a {
+  color: #fef08a;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.xepa-legal-back a:hover {
+  text-decoration: underline;
+}
+
+.xepa-legal-doc {
+  background: #fff;
+  color: #1e1b4b;
+  border-radius: 18px;
+  padding: 1.5rem 1.35rem 1.65rem;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.xepa-legal-doc-header {
+  margin-bottom: 1.15rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid #e9e4f4;
+}
+
+.xepa-legal-doc-header h1 {
+  margin: 0;
+  font-size: clamp(1.35rem, 4vw, 1.6rem);
+  font-weight: 800;
+  color: #5b21b6;
+  line-height: 1.25;
+}
+
+.xepa-legal-doc-updated {
+  margin: 0.45rem 0 0;
+  font-size: 0.78rem;
+  color: #6b7280;
+}
+
+.xepa-legal-doc-body h2 {
+  margin: 1.35rem 0 0.45rem;
+  font-size: 1rem;
+  font-weight: 800;
+  color: #4c1d95;
+  line-height: 1.3;
+}
+
+.xepa-legal-doc-body h2:first-of-type {
+  margin-top: 0.85rem;
+}
+
+.xepa-legal-doc-body p {
+  margin: 0 0 0.65rem;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: #374151;
+}
+
+.xepa-legal-doc-body ul {
+  margin: 0 0 0.65rem;
+  padding-left: 1.15rem;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: #374151;
+}
+
+.xepa-legal-doc-body li {
+  margin-bottom: 0.35rem;
+}
+
+.xepa-legal-doc-body li:last-child {
+  margin-bottom: 0;
+}
+
+.xepa-legal-cross {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem 0.5rem;
+  margin-top: 1.1rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.xepa-legal-cross a {
+  color: rgba(255, 255, 255, 0.92);
+  text-decoration: none;
+}
+
+.xepa-legal-cross a:hover {
+  text-decoration: underline;
+}
+
+.xepa-legal-cross-sep {
+  color: rgba(255, 255, 255, 0.45);
+  user-select: none;
+}
+
+.xepa-legal-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem 0.5rem;
+  margin-top: 1.35rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.xepa-legal-footer--dashboard {
+  margin-top: 2rem;
+  margin-bottom: 0.25rem;
+}
+
+.xepa-legal-footer a {
+  color: rgba(255, 255, 255, 0.88);
+  text-decoration: none;
+}
+
+.xepa-legal-footer a:hover {
+  text-decoration: underline;
+  color: #fff;
+}
+
+.xepa-legal-footer-sep {
+  color: rgba(255, 255, 255, 0.45);
+  user-select: none;
+}
