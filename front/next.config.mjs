@@ -1,5 +1,4 @@
-import type { NextConfig } from "next";
-
+/** @type {import('next').NextConfig} */
 const frameAncestors =
   process.env.ALLOWED_FRAME_ANCESTORS ??
   "'self' https://geraldo-restaurantes.aiqfome.digital";
@@ -21,7 +20,7 @@ const apiProxyBase =
   process.env.API_PROXY_URL ??
   (process.env.NODE_ENV === "development" ? "http://127.0.0.1:8000" : "");
 
-const nextConfig: NextConfig = {
+const nextConfig = {
   async rewrites() {
     if (!apiProxyBase) {
       return [];

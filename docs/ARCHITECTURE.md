@@ -78,7 +78,7 @@ flowchart TB
 ## 4. Frontend e integração Geraldo
 
 - A **UI principal** está em [`front/src/components/home.tsx`](../front/src/components/home.tsx): configuração e chamadas a `GET/PATCH /api/settings`, `GET /api/me` (servidas pelo FastAPI atrás do proxy).
-- **Geraldo UI**: [`front/src/components/geraldo-register.tsx`](../front/src/components/geraldo-register.tsx) e [`front/src/app/layout.tsx`](../front/src/app/layout.tsx). [`front/next.config.ts`](../front/next.config.ts) define **CSP `frame-ancestors`** (`ALLOWED_FRAME_ANCESTORS`).
+- **Geraldo UI**: [`front/src/components/geraldo-register.tsx`](../front/src/components/geraldo-register.tsx) e [`front/src/app/layout.tsx`](../front/src/app/layout.tsx). [`front/next.config.mjs`](../front/next.config.mjs) define **CSP `frame-ancestors`** (`ALLOWED_FRAME_ANCESTORS`).
 - **postMessage**: [`front/src/lib/auth/post-message.ts`](../front/src/lib/auth/post-message.ts) + `NEXT_PUBLIC_POSTMESSAGE_ORIGINS`.
 
 ---
