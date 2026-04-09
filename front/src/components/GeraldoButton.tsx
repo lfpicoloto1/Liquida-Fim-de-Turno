@@ -30,7 +30,7 @@ type GeraldoButtonHost = HTMLElement & {
 
 /**
  * React 19 trata web components principalmente como atributos string; o Lit usa propriedades
- * para :host([variant=…]). Sincronizamos no ref antes do paint para os estilos aplicarem.
+ * para :host([variant=…]). Sincronizamos no ref antes do paint. Não repassar variant/color no JSX.
  */
 export function GeraldoButton({
   variant = "filled",

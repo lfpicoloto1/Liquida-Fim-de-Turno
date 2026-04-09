@@ -22,14 +22,16 @@ async def logout(
         await db.commit()
 
     s = get_settings()
+    secure = s.session_cookie_secure
+    same_site = s.session_cookie_samesite
     resp = JSONResponse({"ok": True})
-    resp.delete_cookie(SESSION_COOKIE, path="/")
+    resp.delete_cookie(SESSION_COOKIE, path="/", secure=secure, httponly=True, samesite=same_site)
     resp.set_cookie(
         SESSION_COOKIE,
         "",
         httponly=True,
-        secure=s.is_production,
-        samesite="lax",
+        secure=secure,
+        samesite=same_site,
         max_age=0,
         path="/",
     )
