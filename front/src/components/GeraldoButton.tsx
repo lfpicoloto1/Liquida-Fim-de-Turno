@@ -29,8 +29,10 @@ type GeraldoButtonHost = HTMLElement & {
 };
 
 /**
- * React 19 trata web components principalmente como atributos string; o Lit usa propriedades
- * para :host([variant=…]). Sincronizamos no ref antes do paint. Não repassar variant/color no JSX.
+ * O estilo do `geraldo-button` usa `:host([variant=…])` etc. (seletores de atributo no host).
+ * No React 19, `variant` / `color` / `size` viram atribuição de *propriedade* no custom element
+ * (`key in domElement`), e o Lit não reflete essas props — os atributos somem e o botão fica “cru”.
+ * Forçamos os atributos no layout effect (antes do paint) para o shadow CSS bater.
  */
 export function GeraldoButton({
   variant = "filled",
@@ -48,17 +50,27 @@ export function GeraldoButton({
   useLayoutEffect(() => {
     const el = ref.current;
     if (!el) return;
+    el.setAttribute("variant", variant);
+    el.setAttribute("color", color);
+    el.setAttribute("size", size);
     const h = el as GeraldoButtonHost;
-    h.variant = variant;
-    h.color = color;
-    h.size = size;
     h.loading = loading;
     h.disabled = disabled;
     h.type = type;
   }, [variant, color, size, loading, disabled, type]);
 
   return (
-    <geraldo-button ref={ref} className={className} onClick={onClick}>
+    <geraldo-button
+      ref={ref}
+      className={className}
+      variant={variant}
+      color={color}
+      size={size}
+      loading={loading}
+      disabled={disabled}
+      type={type}
+      onClick={onClick}
+    >
       {children}
     </geraldo-button>
   );
