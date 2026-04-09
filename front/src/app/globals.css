@@ -440,8 +440,15 @@ body {
   border-radius: 999px;
   appearance: none;
   cursor: pointer;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08);
-  background: var(--geraldo-color-neutral-200, #dedede);
+  box-shadow: inset 0 2px 6px rgba(91, 33, 182, 0.2);
+  background: linear-gradient(
+    90deg,
+    #4ade80 0%,
+    #a3e635 25%,
+    #fbbf24 55%,
+    #c084fc 85%,
+    #7c3aed 100%
+  );
   outline: none;
   transition: transform 0.15s ease;
 }
@@ -509,25 +516,6 @@ body {
   border-color: var(--geraldo-color-primary-400, #7b1fa2);
   box-shadow: 0 0 0 2px var(--geraldo-color-primary-bg, #f9edff);
   background: var(--geraldo-color-primary-bg, #f9edff);
-}
-
-.xepa-pill[aria-pressed="true"] .xepa-pill-icon {
-  animation: xepa-pill-bounce 0.45s ease;
-}
-
-@keyframes xepa-pill-bounce {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  40% {
-    transform: translateY(-6px) scale(1.1);
-  }
-}
-
-.xepa-pill-icon {
-  font-size: 1.15rem;
-  line-height: 1;
 }
 
 .xepa-timeline {
@@ -702,16 +690,6 @@ label.stack.xepa-lead-field {
   .xepa-fab-bar geraldo-button {
     width: 100%;
   }
-}
-
-.xepa-categories-headline {
-  margin: 0 0 0.35rem;
-  font-family: var(--geraldo-font-family);
-  font-size: clamp(var(--geraldo-text-h3-size), 3.2vw, var(--geraldo-text-h2-size));
-  font-weight: var(--geraldo-font-weight-bold);
-  line-height: var(--geraldo-text-h3-line);
-  color: var(--geraldo-color-primary-900, #36036c);
-  letter-spacing: -0.03em;
 }
 
 .xepa-pill-grid--spacious {

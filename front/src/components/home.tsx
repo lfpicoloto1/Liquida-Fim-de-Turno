@@ -31,8 +31,6 @@ const DAYS: { bit: number; label: string }[] = [
 
 const DAY_MOOD_ICONS = ["🥐", "☕", "🌮", "🥗", "🍝", "🍔", "🍕"] as const;
 
-const CATEGORY_FOOD_ICONS = ["🍔", "🍕", "🥤", "🌮", "🍜", "🥙", "🧁", "🍟"] as const;
-
 function subtractMinutesFromHHMM(hhmm: string, leadMin: number): string {
   const [h, m] = hhmm.split(":").map((x) => Number(x));
   if (!Number.isFinite(h) || !Number.isFinite(m)) return "—";
@@ -524,7 +522,9 @@ export function Home() {
               <div>
                 <h1 className="xepa-hero-title">Hora da Xepa! 🔥 Zere sua vitrine no aiqfome</h1>
                 <p className="xepa-hero-sub">
-                  Vamos dar um gás nas vendas do fim do dia e transformar sobras em lucro! Vamo que vamo!
+                  Em poucos passos: defina o percentual de desconto nas sobras, escolha em quais categorias do cardápio a
+                  promoção vale e, por fim, ajuste com quanto tempo de antecedência ao fechamento da loja as ofertas
+                  passam a aparecer no aiqfome. Depois é só salvar.
                 </p>
                 <div className="xepa-store-chip">
                   <geraldo-badge tone="primary">{me.store.displayName ?? me.store.externalStoreId}</geraldo-badge>
@@ -584,17 +584,13 @@ export function Home() {
 
             <geraldo-card className="xepa-widget xepa-widget--categories" elevation="2" radius="lg">
               <div slot="header" className="xepa-widget-header">
-                <span className="xepa-widget-emoji" aria-hidden>
-                  🍽️
-                </span>
                 <geraldo-text variant="h3-section" weight="medium">
                   Categorias do desconto
                 </geraldo-text>
               </div>
               <div className="xepa-widget-body xepa-widget-body--tight">
-                <h2 className="xepa-categories-headline">Selecione as categorias para o desconto</h2>
                 <p className="muted" style={{ margin: 0, fontSize: "0.95rem" }}>
-                  Clica nas pílulas onde o desconto vai valer.
+                  Clique nas opções abaixo onde o desconto deve valer.
                 </p>
                 {menuCategoriesError ? <p className="error">{menuCategoriesError}</p> : null}
                 {menuCategories === null && storeKey && !menuCategoriesError ? (
@@ -603,7 +599,6 @@ export function Home() {
                 {menuCategories && menuCategories.length > 0 ? (
                   <div className="xepa-pill-grid xepa-pill-grid--spacious">
                     {menuCategories.map((c) => {
-                      const icon = CATEGORY_FOOD_ICONS[Math.abs(c.id) % CATEGORY_FOOD_ICONS.length];
                       const pressed = promoCategories.has(c.id);
                       return (
                         <button
@@ -613,11 +608,8 @@ export function Home() {
                           aria-pressed={pressed}
                           onClick={() => togglePromoCategory(c.id)}
                         >
-                          <span className="xepa-pill-icon">{icon}</span>
-                          <span>
-                            {c.name ?? `#${c.id}`}
-                            {c.status && c.status !== "AVAILABLE" ? ` (${c.status})` : ""}
-                          </span>
+                          {c.name ?? `#${c.id}`}
+                          {c.status && c.status !== "AVAILABLE" ? ` (${c.status})` : ""}
                         </button>
                       );
                     })}
