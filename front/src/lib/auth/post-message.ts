@@ -10,5 +10,10 @@ export function getTrustedPostMessageOrigins(): string[] {
 }
 
 export function isTrustedOrigin(origin: string): boolean {
+  // Popup OAuth (callback em /auth/magalu/callback) envia de window.location.origin da app;
+  // esse origin não costuma estar em NEXT_PUBLIC_POSTMESSAGE_ORIGINS (lista = Geraldo, dev).
+  if (typeof window !== "undefined" && origin === window.location.origin) {
+    return true;
+  }
   return getTrustedPostMessageOrigins().includes(origin);
 }
