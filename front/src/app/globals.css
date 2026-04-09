@@ -100,6 +100,15 @@ body {
   max-width: none;
 }
 
+.xepa-login-hero-tagline {
+  margin-top: 0.65rem;
+}
+
+.xepa-login-flow-intro {
+  margin: 0 0 0.85rem;
+  color: var(--geraldo-color-text-secondary, #6d6f73);
+}
+
 .xepa-login-carousel {
   width: min(1040px, calc(100vw - 1.75rem));
   margin: 1.35rem auto 1rem;
@@ -200,7 +209,7 @@ body {
 .xepa-hero {
   position: relative;
   display: block;
-  padding: 1.35rem 1.5rem 1.35rem 1.75rem;
+  padding: 1.35rem clamp(1rem, 4vw, 1.75rem);
   margin-bottom: 1.5rem;
   border-radius: var(--geraldo-radius-box-outer, 16px);
   background: var(--geraldo-color-primary-bg, #f9edff);
@@ -233,13 +242,14 @@ body {
 }
 
 .xepa-hero-sub {
-  margin: 0.5rem 0 0;
+  margin: 0.65rem 0 0;
   font-family: var(--geraldo-font-family);
-  font-size: var(--geraldo-text-body-size);
-  line-height: var(--geraldo-text-body-line);
+  font-size: clamp(0.9375rem, 2.4vw, 1.0625rem);
+  line-height: 1.55;
   font-weight: var(--geraldo-font-weight-regular);
   color: var(--geraldo-color-text-secondary, #6d6f73);
-  max-width: 36ch;
+  max-width: none;
+  text-wrap: pretty;
 }
 
 .xepa-store-chip {

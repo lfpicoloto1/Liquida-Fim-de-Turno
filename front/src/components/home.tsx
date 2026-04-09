@@ -1,5 +1,6 @@
 "use client";
 
+import "@/lib/geraldo-define-client";
 import {
   useCallback,
   useEffect,
@@ -30,6 +31,10 @@ const DAYS: { bit: number; label: string }[] = [
 ];
 
 const DAY_MOOD_ICONS = ["🥐", "☕", "🌮", "🥗", "🍝", "🍔", "🍕"] as const;
+
+/** Texto único: fluxo do app (hero logado + card de login). Sem “sobre”; “sobras” trocado por liquidação. */
+const XEPA_FLOW_DESCRIPTION =
+  "Em poucos passos: defina o percentual de desconto da liquidação, escolha em quais categorias do cardápio a promoção vale e, por fim, ajuste com quanto tempo de antecedência ao fechamento da loja as ofertas passam a aparecer no aiqfome. Depois é só salvar.";
 
 function subtractMinutesFromHHMM(hhmm: string, leadMin: number): string {
   const [h, m] = hhmm.split(":").map((x) => Number(x));
@@ -455,9 +460,8 @@ export function Home() {
 
           <section className="xepa-hero xepa-login-hero" aria-label="Boas-vindas">
             <h1 className="xepa-hero-title">Hora da Xepa começa aqui 🔥</h1>
-            <p className="xepa-hero-sub">
-              Entra com Magalu ID e deixa a gente cuidar do desconto de fim de dia — sobra vira oportunidade, não
-              estresse.
+            <p className="xepa-hero-sub xepa-login-hero-tagline">
+              Use o Magalu ID (o mesmo da aiqfome) para entrar e configurar tudo no painel abaixo.
             </p>
           </section>
 
@@ -471,6 +475,7 @@ export function Home() {
               </geraldo-text>
             </div>
             <div className="xepa-widget-body xepa-widget-body--tight">
+              <p className="xepa-hero-sub xepa-login-flow-intro">{XEPA_FLOW_DESCRIPTION}</p>
               <geraldo-text variant="body" weight="regular">
                 É o mesmo login Magalu ID que você já usa com a aiqfome. Sem firula: popup, autoriza, pronto.
               </geraldo-text>
@@ -521,11 +526,7 @@ export function Home() {
             <div className="xepa-hero-top">
               <div>
                 <h1 className="xepa-hero-title">Hora da Xepa! 🔥 Zere sua vitrine no aiqfome</h1>
-                <p className="xepa-hero-sub">
-                  Em poucos passos: defina o percentual de desconto nas sobras, escolha em quais categorias do cardápio a
-                  promoção vale e, por fim, ajuste com quanto tempo de antecedência ao fechamento da loja as ofertas
-                  passam a aparecer no aiqfome. Depois é só salvar.
-                </p>
+                <p className="xepa-hero-sub">{XEPA_FLOW_DESCRIPTION}</p>
                 <div className="xepa-store-chip">
                   <geraldo-badge tone="primary">{me.store.displayName ?? me.store.externalStoreId}</geraldo-badge>
                 </div>
