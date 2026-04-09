@@ -12,6 +12,7 @@ import Link from "next/link";
 import { getDay } from "date-fns";
 import { toZonedTime } from "date-fns-tz";
 import { isTrustedOrigin } from "@/lib/auth/post-message";
+import { LoginMarketingCarousel } from "@/components/LoginMarketingCarousel";
 import { SaveSuccessCelebration } from "@/components/SaveSuccessCelebration";
 import {
   brazilTimeZoneSelectOptions,
@@ -504,6 +505,9 @@ export function Home() {
               </p>
             </div>
           </geraldo-card>
+
+          <LoginMarketingCarousel />
+
           <nav className="xepa-legal-footer" aria-label="Documentos legais">
             <Link href="/privacidade">Política de privacidade</Link>
             <span className="xepa-legal-footer-sep" aria-hidden>
