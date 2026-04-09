@@ -1,3 +1,5 @@
+# Front: build com contexto na raiz do monorepo.
+# Alternativa no Railway: Root Directory = "front" + dockerfilePath = "Dockerfile" (ver front/Dockerfile).
 [build]
 builder = "DOCKERFILE"
 dockerfilePath = "docker/front/Dockerfile"

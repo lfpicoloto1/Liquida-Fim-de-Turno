@@ -41,13 +41,15 @@ Variáveis e Magalu local: comentários em [`.env.example`](.env.example). Detal
 
 Imagens e comandos: [`docker/README.md`](docker/README.md).
 
+**Railway (recomendado):** em cada serviço, Root Directory = `front` / `backend` / `temporal` e Dockerfile path = `Dockerfile` — ver [`docker/README.md`](docker/README.md).
+
+**Build local com contexto na raiz do repo:**
+
 ```bash
 docker build -f docker/front/Dockerfile -t liquida-front .
 docker build -f docker/backend/Dockerfile -t liquida-api .
 docker build -f docker/temporal-worker/Dockerfile -t liquida-temporal-worker .
 ```
-
-Contexto da build é sempre a **raiz do monorepo**.
 
 ## Deploy
 

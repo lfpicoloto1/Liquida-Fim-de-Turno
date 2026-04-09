@@ -1,5 +1,8 @@
-# Repositório só com a pasta `front/`: contexto = esta pasta (`.`).
-# No monorepo, use `docker/front/Dockerfile` com contexto na raiz do repo.
+# Contexto = pasta `front/` (esta pasta).
+#
+# Railway: Root Directory = `front`, Dockerfile path = `Dockerfile`.
+# Monorepo com contexto na raiz: use `docker/front/Dockerfile` na raiz do repo.
+# Repo só com front: `docker build -t liquida-front .` aqui dentro.
 FROM node:22-alpine AS builder
 WORKDIR /app
 

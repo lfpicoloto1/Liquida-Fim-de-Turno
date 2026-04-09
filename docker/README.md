@@ -1,12 +1,22 @@
 # Imagens Docker (monorepo)
 
-Contexto de build (**sempre a raiz do repositório**):
+## Railway (recomendado)
+
+Para cada serviço, **Root Directory** = pasta do serviço e **Dockerfile path** = `Dockerfile`:
+
+| Serviço | Root Directory | Dockerfile no repo |
+|---------|----------------|-------------------|
+| API | `backend` | [`backend/Dockerfile`](../backend/Dockerfile) |
+| Front | `front` | [`front/Dockerfile`](../front/Dockerfile) |
+| Worker | `temporal` | [`temporal/Dockerfile`](../temporal/Dockerfile) |
+
+## Build local com contexto na raiz do repo
 
 | Imagem | Comando |
 |--------|---------|
-| **Front** (Next.js) | `docker build -f docker/front/Dockerfile -t liquida-front .` |
-| **Backend** (FastAPI) | `docker build -f docker/backend/Dockerfile -t liquida-api .` |
-| **Worker Temporal** | `docker build -f docker/temporal-worker/Dockerfile -t liquida-temporal-worker .` |
+| **Front** | `docker build -f docker/front/Dockerfile -t liquida-front .` |
+| **Backend** | `docker build -f docker/backend/Dockerfile -t liquida-api .` |
+| **Worker** | `docker build -f docker/temporal-worker/Dockerfile -t liquida-temporal-worker .` |
 
 ## Variáveis no runtime
 
@@ -18,4 +28,4 @@ Contexto de build (**sempre a raiz do repositório**):
 
 - Um serviço por imagem (ou Nixpacks no backend/worker, se preferir).
 - **Temporal:** aponte `TEMPORAL_ADDRESS` / namespace para o cluster que você já tem no Railway (gRPC). Se o provedor exigir TLS ou API key, ajuste o client em `backend/app/temporal_admin.py` e no worker conforme a doc do provedor.
-- O arquivo [`railway.toml`](../railway.toml) na raiz referencia apenas o **front**; para API e worker, crie serviços no dashboard e defina o Dockerfile correspondente ou use buildpacks.
+- O [`railway.toml`](../railway.toml) na raiz usa `docker/front/Dockerfile` (contexto **raiz** do repo). Se o serviço do front no Railway usar **Root = `front`**, no dashboard ponha Dockerfile path = `Dockerfile` (ficheiro em `front/`) em vez desse `railway.toml`, ou ajusta o TOML para o teu fluxo.

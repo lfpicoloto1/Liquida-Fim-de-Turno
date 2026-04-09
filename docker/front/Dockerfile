@@ -1,5 +1,6 @@
-# Build a partir da raiz do monorepo:
+# Build com contexto na raiz do monorepo:
 #   docker build -f docker/front/Dockerfile -t liquida-front .
+# Com Root Directory = `front` no Railway, use em vez disso `front/Dockerfile` (path `Dockerfile`).
 FROM node:22-alpine AS builder
 WORKDIR /app
 

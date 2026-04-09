@@ -18,3 +18,8 @@ python run_worker.py
 - Lista: [`.env.example`](.env.example) e [`.env.example` na raiz](../.env.example).
 
 Requer `TEMPORAL_INTERNAL_SECRET` idêntico ao do backend.
+
+## Docker / Railway
+
+- **Railway:** Root Directory = `temporal`, Dockerfile path = `Dockerfile` (ficheiro [`Dockerfile`](Dockerfile) nesta pasta).
+- Monorepo com contexto na **raiz:** `docker build -f docker/temporal-worker/Dockerfile -t liquida-temporal-worker .` — ver [`docker/README.md`](../docker/README.md).

@@ -2,6 +2,10 @@
 
 API **FastAPI**: auth Magalu, sessão, settings, `POST /api/internal/temporal`, integração Aiqfome (SQLAlchemy/asyncpg).
 
+## Railway / Docker
+
+Com **Root Directory** = `backend` no Railway: **Dockerfile path** = `Dockerfile` (ficheiro [`Dockerfile`](Dockerfile) nesta pasta). Não uses `docker/backend/Dockerfile` nesse modo — esse outro ficheiro assume contexto na **raiz** do monorepo.
+
 ## Desenvolvimento
 
 ```bash

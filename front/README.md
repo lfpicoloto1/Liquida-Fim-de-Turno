@@ -20,8 +20,9 @@ O `prisma/schema.prisma` vive aqui; `npm run db:push` carrega primeiro `../.env.
 
 ## Build / Docker
 
-- Monorepo: na **raiz** do repositório, `docker build -f docker/front/Dockerfile -t liquida-front .` (ver [`docker/README.md`](../docker/README.md)).
-- Repositório **só** com esta pasta: `docker build -t liquida-front .` usando o `Dockerfile` deste diretório.
+- **Railway:** Root Directory = `front`, Dockerfile path = `Dockerfile` (este [`Dockerfile`](Dockerfile)).
+- Monorepo com contexto na **raiz:** `docker build -f docker/front/Dockerfile -t liquida-front .` (ver [`docker/README.md`](../docker/README.md)).
+- Repo **só** com esta pasta: `docker build -t liquida-front .` aqui dentro.
 
 ## Variáveis
 

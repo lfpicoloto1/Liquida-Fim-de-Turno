@@ -4,11 +4,11 @@ Monorepo com três executáveis principais: **Next (front)**, **FastAPI (backend
 
 ## Serviços sugeridos no Railway
 
-| Serviço | Origem | Notas |
-|---------|--------|--------|
-| **Web** | [`docker/front/Dockerfile`](../docker/front/Dockerfile) | Definir `API_PROXY_URL` = URL pública do backend (termina sem `/`). |
-| **API** | [`docker/backend/Dockerfile`](../docker/backend/Dockerfile) ou Nixpacks | Variáveis do backend (abaixo). |
-| **Worker** | [`docker/temporal-worker/Dockerfile`](../docker/temporal-worker/Dockerfile) | `NEXT_APP_URL` = URL pública do **front** (o worker chama `/api/internal/temporal` via Next → proxy → FastAPI). |
+| Serviço | Origem (Railway) | Notas |
+|---------|------------------|--------|
+| **Web** | Root = `front`, Dockerfile = `Dockerfile` → [`front/Dockerfile`](../front/Dockerfile) | `API_PROXY_URL` = URL pública do backend (sem `/` no fim). Alternativa: raiz do repo + [`docker/front/Dockerfile`](../docker/front/Dockerfile). |
+| **API** | Root = `backend`, Dockerfile = `Dockerfile` → [`backend/Dockerfile`](../backend/Dockerfile) | *Ou* raiz + [`docker/backend/Dockerfile`](../docker/backend/Dockerfile). |
+| **Worker** | Root = `temporal`, Dockerfile = `Dockerfile` → [`temporal/Dockerfile`](../temporal/Dockerfile) | `NEXT_APP_URL` = URL pública do **front**. *Ou* raiz + [`docker/temporal-worker/Dockerfile`](../docker/temporal-worker/Dockerfile). |
 | **Temporal** | Cluster já existente | Só variáveis de conexão; não precisa duplicar se já está no projeto. |
 
 ## Variáveis críticas
