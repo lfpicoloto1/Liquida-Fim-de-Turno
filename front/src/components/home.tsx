@@ -463,8 +463,6 @@ export function Home() {
             </p>
           </section>
 
-          <LoginMarketingCarousel />
-
           <geraldo-card className="xepa-widget xepa-login-card" elevation="2" radius="lg">
             <div slot="header" className="xepa-widget-header">
               <span className="xepa-widget-emoji" aria-hidden>
@@ -507,6 +505,9 @@ export function Home() {
               </p>
             </div>
           </geraldo-card>
+
+          <LoginMarketingCarousel />
+
           <nav className="xepa-legal-footer" aria-label="Documentos legais">
             <Link href="/privacidade">Política de privacidade</Link>
             <span className="xepa-legal-footer-sep" aria-hidden>
