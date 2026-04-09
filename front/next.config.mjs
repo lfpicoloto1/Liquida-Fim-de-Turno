@@ -16,18 +16,9 @@ const securityHeaders = [
   },
 ];
 
-const apiProxyBase =
-  process.env.API_PROXY_URL ??
-  (process.env.NODE_ENV === "development" ? "http://127.0.0.1:8000" : "");
-
 const nextConfig = {
-  async rewrites() {
-    if (!apiProxyBase) {
-      return [];
-    }
-    const base = apiProxyBase.replace(/\/$/, "");
-    return [{ source: "/api/:path*", destination: `${base}/api/:path*` }];
-  },
+  // Proxy /api/* → FastAPI: use `app/api/[[...path]]/route.ts` (lê API_PROXY_URL em runtime).
+  // Rewrites aqui só avaliam env no build — no Railway/Docker isso gerava 404 se a var fosse só runtime.
   async headers() {
     return [
       {

@@ -33,7 +33,7 @@ export default function LiquidaDebugEnvPage() {
     API_PROXY_URL_hostname: hostname,
     API_PROXY_URL_parseError: parseError,
     note:
-      "Se API_PROXY_URL_defined for false no servidor do Next, o rewrite foi gerado sem destino (build sem a variável ou nome errado). No browser, fetch('/api/...') mostra sempre o domínio do front — isso é normal; o proxy é servidor → backend.",
+      "O tráfego /api/* vai para o FastAPI via app/api/[[...path]]/route.ts (runtime). Se defined for false, esse proxy devolve 503.",
   };
 
   return (
