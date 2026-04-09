@@ -1,0 +1,64 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Store {
+  id                  String         @id @default(cuid())
+  createdAt           DateTime       @default(now())
+  updatedAt           DateTime       @updatedAt
+  externalStoreId     String         @unique
+  timeZone            String         @default("America/Sao_Paulo")
+  displayName         String?
+  encryptedRefresh    String?
+  accessToken         String?
+  accessExpiresAt     DateTime?
+  settings       StoreSettings?
+  sessions       Session[]
+  priceBaseline  PriceBaseline?
+  jobState       JobState?
+}
+
+model StoreSettings {
+  id                String   @id @default(cuid())
+  storeId           String   @unique
+  store             Store    @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  discountPercent   Int      @default(15)
+  leadMinutes       Int      @default(60)
+  /// Bitmask: bit 0 = domingo … bit 6 = sábado (como getUTCDay)
+  activeWeekdays    Int      @default(62)
+  routineEnabled    Boolean  @default(false)
+  /// IDs das categorias do cardápio (GET /api/v2/menu/:store_id/categories) que recebem a promo
+  promoCategoryIds  Int[]    @default([])
+  updatedAt         DateTime @updatedAt
+}
+
+model JobState {
+  id                   String   @id @default(cuid())
+  storeId              String   @unique
+  store                Store    @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  lastRunAt            DateTime?
+  lastError            String?
+  promoAppliedForDate  String?
+  lastRevertDate       String?
+}
+
+model PriceBaseline {
+  id        String   @id @default(cuid())
+  storeId   String   @unique
+  store     Store    @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  payload   String
+  updatedAt DateTime @updatedAt
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  storeId   String
+  store     Store    @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}

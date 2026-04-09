@@ -1,0 +1,18 @@
+# Postgres local — app sobe fora do Compose (front, backend, worker).
+# Uso: docker compose -f infra/docker-compose.postgres.yml up -d
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: liquida-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: liquida
+      POSTGRES_PASSWORD: liquida
+      POSTGRES_DB: liquida
+    ports:
+      - "5432:5432"
+    volumes:
+      - liquida_pgdata:/var/lib/postgresql/data
+
+volumes:
+  liquida_pgdata:

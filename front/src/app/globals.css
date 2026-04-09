@@ -1,0 +1,816 @@
+@import "@aiqfome-org/geraldo-ui/tokens.css";
+
+:root {
+  color-scheme: light dark;
+  /* Next.js `next/font` + tokens Geraldo (Ubuntu) */
+  --geraldo-font-family: var(--font-ubuntu), "Ubuntu", ui-sans-serif, system-ui, sans-serif;
+  --xepa-purple-deep: #3b0764;
+  --xepa-purple-mid: #6b21a8;
+  --xepa-magenta: #db2777;
+  --xepa-magenta-hot: #f472b6;
+  --xepa-lime: #4ade80;
+  --xepa-lime-glow: #86efac;
+  --xepa-amber: #fbbf24;
+  --xepa-orange: #fb923c;
+  --xepa-card-light: #faf5ff;
+  --xepa-shadow-widget: 0 4px 24px rgba(59, 7, 100, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.65);
+  --xepa-shadow-widget-hover: 0 8px 32px rgba(219, 39, 119, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.75);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--geraldo-font-family);
+  font-size: var(--geraldo-text-body-size);
+  line-height: var(--geraldo-text-body-line);
+  font-weight: var(--geraldo-font-weight-regular);
+  background: var(--geraldo-color-surface-muted, #f5f5f5);
+  color: var(--geraldo-color-text, #252525);
+}
+
+.app-shell {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 1.25rem;
+}
+
+/* —— Liquida Xepa: dashboard autenticado —— */
+.xepa-dashboard {
+  min-height: 100vh;
+  padding: var(--geraldo-space-5) var(--geraldo-space-4) var(--geraldo-space-5);
+  background-color: var(--xepa-purple-deep);
+  background-image:
+    radial-gradient(ellipse 120% 80% at 50% -30%, rgba(219, 39, 119, 0.45), transparent 55%),
+    radial-gradient(ellipse 60% 40% at 100% 50%, rgba(107, 33, 168, 0.5), transparent),
+    radial-gradient(ellipse 50% 35% at 0% 80%, rgba(74, 222, 128, 0.12), transparent),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72' viewBox='0 0 72 72'%3E%3Cg fill='none' opacity='.14'%3E%3Cpath fill='%23fbbf24' d='M8 14 L18 28 L4 28 Z'/%3E%3Ccircle cx='48' cy='16' r='6' fill='%23fb923c'/%3E%3Cpath fill='%23a78bfa' d='M52 44 L64 58 L40 58 Z'/%3E%3Ccircle cx='22' cy='52' r='5' fill='%234ade80'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: auto, auto, auto, 72px 72px;
+  color: #fafafa;
+}
+
+.xepa-dashboard-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding-bottom: 7rem;
+}
+
+.xepa-toast-stack {
+  position: fixed;
+  top: max(1rem, env(safe-area-inset-top, 0px));
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  width: min(92vw, 440px);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  pointer-events: none;
+}
+
+.xepa-toast-fixed {
+  pointer-events: auto;
+  padding: 0.85rem 1.1rem;
+  border-radius: 14px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  line-height: 1.35;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.28);
+}
+
+.xepa-toast-fixed--success {
+  background: linear-gradient(135deg, #15803d, #22c55e);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.xepa-toast-fixed--error {
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+.xepa-loading-msg {
+  margin: 0;
+  font-family: var(--geraldo-font-family);
+  font-size: var(--geraldo-text-h3-size);
+  line-height: var(--geraldo-text-h3-line);
+  font-weight: var(--geraldo-font-weight-bold);
+  color: #fef3c7;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+}
+
+/* —— Login (mesmo clima do dashboard) —— */
+.xepa-dashboard-inner.xepa-login-shell {
+  max-width: 520px;
+  margin: 0 auto;
+  padding-bottom: 2.5rem;
+}
+
+.xepa-login-hero {
+  margin-bottom: 1.25rem;
+  padding: 1.2rem 1.35rem 1.35rem;
+}
+
+.xepa-login-hero .xepa-hero-sub {
+  max-width: none;
+}
+
+.xepa-login-card {
+  width: 100%;
+}
+
+.xepa-login-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-top: 0.35rem;
+}
+
+.xepa-login-primary::part(button) {
+  background: linear-gradient(180deg, #fbbf24, #ea580c) !important;
+  color: #1c1917 !important;
+  border: 2px solid rgba(0, 0, 0, 0.12) !important;
+  font-weight: 700 !important;
+  min-height: 3.1rem;
+  box-shadow:
+    0 4px 0 #9a3412,
+    0 12px 28px rgba(0, 0, 0, 0.35) !important;
+}
+
+.xepa-login-primary::part(button):hover {
+  filter: brightness(1.05);
+}
+
+.xepa-login-dev::part(button) {
+  background: #fff !important;
+  color: #5b21b6 !important;
+  border: 2px solid #7c3aed !important;
+  min-height: 3.1rem;
+  font-weight: 600 !important;
+  box-shadow: 0 4px 14px rgba(91, 33, 182, 0.15) !important;
+}
+
+.xepa-login-dev::part(button):hover {
+  background: #faf5ff !important;
+}
+
+.xepa-login-footnote {
+  margin: 0.15rem 0 0;
+  font-family: var(--geraldo-font-family);
+  font-size: var(--geraldo-text-apoio-size);
+  line-height: var(--geraldo-text-apoio-line);
+  color: var(--geraldo-color-text-secondary, #6d6f73);
+}
+
+.xepa-hero {
+  position: relative;
+  display: block;
+  padding: 1.35rem 1.5rem 1.35rem 1.75rem;
+  margin-bottom: 1.5rem;
+  border-radius: 28px;
+  background: linear-gradient(135deg, #581c87 0%, #7c3aed 38%, #db2777 100%);
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.35),
+    inset 0 2px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -3px 12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+.xepa-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 70% 20%, rgba(255, 255, 255, 0.12), transparent 45%);
+  pointer-events: none;
+}
+
+.xepa-hero-main {
+  position: relative;
+  z-index: 1;
+}
+
+.xepa-hero-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.65rem;
+}
+
+.xepa-hero-title {
+  margin: 0;
+  font-family: var(--geraldo-font-family);
+  font-size: clamp(var(--geraldo-text-h3-size), 3.5vw, var(--geraldo-text-h2-size));
+  font-weight: var(--geraldo-font-weight-bold);
+  line-height: var(--geraldo-text-h2-line);
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.25);
+}
+
+.xepa-hero-sub {
+  margin: 0.5rem 0 0;
+  font-family: var(--geraldo-font-family);
+  font-size: var(--geraldo-text-body-size);
+  line-height: var(--geraldo-text-body-line);
+  font-weight: var(--geraldo-font-weight-regular);
+  opacity: 0.95;
+  max-width: 36ch;
+}
+
+.xepa-store-chip {
+  margin-top: 0.85rem;
+}
+
+.xepa-master-switch-wrap {
+  position: relative;
+  z-index: 2;
+  padding: 0.5rem 0.75rem;
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+  transform-origin: top right;
+}
+
+.xepa-master-switch-wrap.xepa-master-on {
+  animation: xepa-switch-glow 2.2s ease-in-out infinite;
+}
+
+@keyframes xepa-switch-glow {
+  0%,
+  100% {
+    box-shadow:
+      inset 0 2px 8px rgba(0, 0, 0, 0.2),
+      0 0 0 0 rgba(74, 222, 128, 0.35);
+  }
+  50% {
+    box-shadow:
+      inset 0 2px 8px rgba(0, 0, 0, 0.2),
+      0 0 24px 4px rgba(74, 222, 128, 0.45);
+  }
+}
+
+.xepa-master-switch-wrap geraldo-switch::part(label) {
+  color: #fff !important;
+  font-weight: 600;
+}
+
+.xepa-hint-strip {
+  margin: -0.5rem 0 1.25rem;
+  padding: 0.65rem 1rem;
+  border-radius: 14px;
+  background: rgba(251, 191, 36, 0.2);
+  border: 1px solid rgba(251, 191, 36, 0.45);
+  font-size: 0.92rem;
+  line-height: 1.4;
+}
+
+.xepa-card-grid {
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.xepa-card-grid--main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr) minmax(0, 1fr);
+  grid-template-rows: 1fr;
+  align-items: stretch;
+  gap: 1rem;
+}
+
+.xepa-grid-left-stack {
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.xepa-grid-schedule-card {
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0;
+  align-self: stretch;
+}
+
+.xepa-grid-right-stack {
+  grid-column: 3;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 0;
+}
+
+@media (max-width: 960px) {
+  .xepa-card-grid--main {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .xepa-grid-left-stack,
+  .xepa-grid-right-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .xepa-master-switch-wrap {
+    width: 100%;
+    transform: none;
+  }
+}
+
+@media (min-width: 961px) {
+  .xepa-grid-schedule-card::part(card) {
+    min-height: 100%;
+    box-sizing: border-box;
+  }
+}
+
+.xepa-widget {
+  --geraldo-color-surface-raised: var(--xepa-card-light);
+  color: #1e1b4b;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.xepa-widget:hover {
+  transform: translateY(-2px);
+}
+
+.xepa-widget::part(card) {
+  border-radius: 22px !important;
+  box-shadow: var(--xepa-shadow-widget) !important;
+  background: linear-gradient(180deg, #fdf4ff 0%, #faf5ff 100%) !important;
+}
+
+.xepa-widget:hover::part(card) {
+  box-shadow: var(--xepa-shadow-widget-hover) !important;
+}
+
+.xepa-widget-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.xepa-widget-emoji {
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.xepa-widget-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 0.25rem;
+  min-width: 0;
+}
+
+.xepa-widget-body--tight {
+  gap: 0.65rem;
+}
+
+.xepa-widget-body .muted {
+  color: #5b21b6;
+  opacity: 0.85;
+}
+
+.xepa-subtle {
+  font-size: 0.88rem;
+  color: #6b21a8;
+  opacity: 0.9;
+  margin: 0;
+}
+
+.xepa-thermo-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.xepa-discount-big {
+  font-size: 2.75rem;
+  font-weight: 800;
+  line-height: 1;
+  background: linear-gradient(135deg, #16a34a, #7c3aed);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  min-width: 5rem;
+  text-align: center;
+}
+
+.xepa-thermo-wrap {
+  flex: 1;
+  min-width: 160px;
+  padding: 0.35rem 0;
+}
+
+.xepa-thermo-input {
+  width: 100%;
+  height: 22px;
+  border-radius: 999px;
+  appearance: none;
+  cursor: pointer;
+  box-shadow: inset 0 2px 6px rgba(91, 33, 182, 0.2);
+  background: linear-gradient(
+    90deg,
+    #4ade80 0%,
+    #a3e635 25%,
+    #fbbf24 55%,
+    #c084fc 85%,
+    #7c3aed 100%
+  );
+  outline: none;
+  transition: transform 0.15s ease;
+}
+
+.xepa-thermo-input:active {
+  transform: scaleY(1.08);
+}
+
+.xepa-thermo-input::-webkit-slider-thumb {
+  appearance: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid #7c3aed;
+  box-shadow: 0 2px 10px rgba(124, 58, 237, 0.5);
+  cursor: grab;
+}
+
+.xepa-thermo-input::-moz-range-thumb {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid #7c3aed;
+  box-shadow: 0 2px 10px rgba(124, 58, 237, 0.5);
+  cursor: grab;
+}
+
+.xepa-discount-mood {
+  font-size: 1.75rem;
+  line-height: 1;
+}
+
+.xepa-pill-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.xepa-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.75rem;
+  border-radius: 999px;
+  border: 2px solid #e9d5ff;
+  background: #fff;
+  color: #4c1d95;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 0 rgba(124, 58, 237, 0.12);
+  transition:
+    transform 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.xepa-pill:hover {
+  transform: translateY(-1px);
+}
+
+.xepa-pill[aria-pressed="true"] {
+  border-color: #db2777;
+  box-shadow:
+    0 0 0 3px rgba(219, 39, 119, 0.25),
+    0 4px 12px rgba(124, 58, 237, 0.2);
+  background: linear-gradient(180deg, #fdf4ff, #fff);
+}
+
+.xepa-pill[aria-pressed="true"] .xepa-pill-icon {
+  animation: xepa-pill-bounce 0.45s ease;
+}
+
+@keyframes xepa-pill-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-6px) scale(1.1);
+  }
+}
+
+.xepa-pill-icon {
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
+.xepa-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.xepa-timeline-bar {
+  height: 14px;
+  border-radius: 999px;
+  background: #e9d5ff;
+  box-shadow: inset 0 2px 4px rgba(91, 33, 182, 0.15);
+  overflow: hidden;
+}
+
+.xepa-timeline-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--xepa-lime), var(--xepa-amber), var(--xepa-orange));
+  transition: width 0.25s ease;
+  box-shadow: 0 0 12px rgba(251, 146, 60, 0.5);
+}
+
+.xepa-clock-ring {
+  width: 100%;
+  max-width: 120px;
+  margin: 0 auto;
+}
+
+.xepa-day-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  justify-content: center;
+}
+
+.xepa-day-dot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  width: 52px;
+  padding: 0.35rem 0.15rem 0.45rem;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  background: #e5e7eb;
+  color: #6b7280;
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+  transition:
+    transform 0.15s ease,
+    background 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.xepa-day-dot:hover {
+  transform: scale(1.05);
+}
+
+.xepa-day-dot[aria-pressed="true"] {
+  background: linear-gradient(180deg, #4ade80, #22c55e);
+  color: #14532d;
+  box-shadow:
+    0 4px 12px rgba(34, 197, 94, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.xepa-day-ico {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.xepa-select,
+.xepa-native-input {
+  font-family: var(--geraldo-font-family);
+  font-size: var(--geraldo-text-body-size);
+  line-height: var(--geraldo-text-body-line);
+  padding: var(--geraldo-space-4) var(--geraldo-space-5);
+  border-radius: var(--geraldo-radius-box-inner);
+  border: var(--geraldo-border-width-2) solid #ddd6fe;
+  background: #fff;
+  color: #1e1b4b;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  box-shadow: inset 0 2px 4px rgba(91, 33, 182, 0.06);
+}
+
+.xepa-lead-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: stretch;
+  width: 100%;
+  min-width: 0;
+}
+
+.xepa-lead-field {
+  flex: 1 1 calc(50% - 0.25rem);
+  min-width: 0;
+}
+
+label.stack.xepa-lead-field {
+  gap: 0.25rem;
+}
+
+.xepa-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.xepa-feed-line {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  padding: 0.55rem 0.65rem;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 2px 8px rgba(91, 33, 182, 0.08);
+}
+
+.xepa-feed-line--go {
+  border-left: 4px solid #22c55e;
+}
+
+.xepa-feed-line--wait {
+  border-left: 4px solid #eab308;
+}
+
+.xepa-feed-line--stop {
+  border-left: 4px solid #ef4444;
+}
+
+.xepa-feed-ico {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.xepa-fab-bar {
+  position: fixed;
+  bottom: max(1.1rem, env(safe-area-inset-bottom, 0px));
+  right: max(1.1rem, env(safe-area-inset-right, 0px));
+  z-index: 950;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: stretch;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  max-width: calc(100vw - 2.2rem);
+}
+
+.xepa-fab-bar geraldo-button {
+  min-height: 3.15rem;
+}
+
+/* Cores fixas via ::part — não depende do token primary roxo (evita sumir no fundo). */
+.xepa-fab-cancel::part(button) {
+  background: rgba(255, 255, 255, 0.12) !important;
+  color: #ffffff !important;
+  border: 2px solid rgba(255, 255, 255, 0.92) !important;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35) !important;
+}
+
+.xepa-fab-cancel::part(button):hover {
+  background: rgba(255, 255, 255, 0.22) !important;
+}
+
+.xepa-fab-save::part(button) {
+  background: linear-gradient(180deg, #fbbf24, #ea580c) !important;
+  color: #1c1917 !important;
+  border: 2px solid rgba(0, 0, 0, 0.12) !important;
+  font-weight: 700 !important;
+  box-shadow:
+    0 4px 0 #9a3412,
+    0 14px 36px rgba(0, 0, 0, 0.45) !important;
+}
+
+.xepa-fab-save::part(button):hover {
+  filter: brightness(1.05);
+}
+
+.xepa-fab-save::part(button):disabled {
+  opacity: 0.85;
+  filter: grayscale(0.15);
+}
+
+@media (max-width: 540px) {
+  .xepa-fab-bar {
+    left: max(1rem, env(safe-area-inset-left, 0px));
+    right: max(1rem, env(safe-area-inset-right, 0px));
+    flex-direction: column;
+    max-width: none;
+  }
+
+  .xepa-fab-bar geraldo-button {
+    width: 100%;
+  }
+}
+
+.xepa-categories-headline {
+  margin: 0 0 0.35rem;
+  font-family: var(--geraldo-font-family);
+  font-size: clamp(var(--geraldo-text-h3-size), 3.2vw, var(--geraldo-text-h2-size));
+  font-weight: var(--geraldo-font-weight-bold);
+  line-height: var(--geraldo-text-h3-line);
+  color: #4c1d95;
+  letter-spacing: -0.03em;
+}
+
+.xepa-pill-grid--spacious {
+  gap: 0.65rem;
+}
+
+@media (min-width: 640px) {
+  .xepa-work-list--columns {
+    column-count: 2;
+    column-gap: 2rem;
+  }
+
+  .xepa-work-list--columns li {
+    break-inside: avoid;
+  }
+}
+
+.xepa-work-list {
+  margin: 0;
+  padding-left: 1.1rem;
+  font-size: 0.85rem;
+  color: #5b21b6;
+}
+
+.xepa-work-list li {
+  margin-bottom: 0.25rem;
+}
+
+.xepa-link {
+  color: #7c3aed;
+  font-weight: 600;
+}
+
+.xepa-schedule-preview {
+  margin: 0;
+  padding-left: 1rem;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: #5b21b6;
+}
+
+.xepa-schedule-preview li {
+  margin-bottom: 0.35rem;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.day-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 0.35rem;
+}
+
+.native-input {
+  font-family: var(--geraldo-font-family);
+  font-size: var(--geraldo-text-body-size);
+  line-height: var(--geraldo-text-body-line);
+  padding: var(--geraldo-space-3) var(--geraldo-space-4);
+  border-radius: var(--geraldo-radius-box-inner);
+  border: var(--geraldo-border-width-1) solid var(--geraldo-color-border, #d3d3d3);
+  background: var(--geraldo-color-surface, #fff);
+  color: var(--geraldo-color-text, #252525);
+}
+
+.muted {
+  opacity: 0.85;
+  font-size: 0.9rem;
+}
+
+.error {
+  color: #b91c1c;
+  font-size: 0.9rem;
+}

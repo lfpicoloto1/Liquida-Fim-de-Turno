@@ -1,0 +1,20 @@
+# Contexto = raiz do monorepo (front, backend, worker).
+.git
+.gitignore
+**/.env
+**/.env.local
+**/.env.*.local
+!.env.example
+!**/.env.example
+**/.venv
+.venv
+**/__pycache__
+**/*.py[cod]
+**/.pytest_cache
+**/node_modules
+front/node_modules
+front/.next
+docs
+.vscode
+.idea
+*.pem
