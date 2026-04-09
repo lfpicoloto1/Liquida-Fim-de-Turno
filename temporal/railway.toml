@@ -1,0 +1,4 @@
+# Railway: Root Directory = "temporal", Dockerfile = "Dockerfile".
+# Processo de longa duração sem HTTP — não uses healthcheckPath aqui.
+[deploy]
+restartPolicyType = "ON_FAILURE"

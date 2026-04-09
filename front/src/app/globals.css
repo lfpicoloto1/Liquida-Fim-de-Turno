@@ -814,3 +814,428 @@ label.stack.xepa-lead-field {
   color: #b91c1c;
   font-size: 0.9rem;
 }
+
+/* —— Celebração pós-salvar —— */
+.xepa-dashboard-inner--save-blur {
+  filter: blur(5px);
+  opacity: 0.72;
+  pointer-events: none;
+  user-select: none;
+  transition:
+    filter 0.38s ease,
+    opacity 0.38s ease;
+}
+
+.xepa-celebration-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 8500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  padding-bottom: max(1.25rem, env(safe-area-inset-bottom, 0px));
+  box-sizing: border-box;
+  animation: xepa-celebration-overlay-in 0.35s ease forwards;
+}
+
+@keyframes xepa-celebration-overlay-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.xepa-celebration-dim {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 5, 35, 0.55);
+  backdrop-filter: blur(2px);
+}
+
+.xepa-celebration-modal {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 430px);
+  max-height: min(92vh, 720px);
+  overflow: auto;
+  padding: 1.35rem 1.25rem 1.5rem;
+  border-radius: 20px;
+  background: linear-gradient(165deg, #fdf4ff 0%, #fff 38%, #f0fdf4 100%);
+  color: #1e1b4b;
+  box-shadow:
+    0 24px 64px rgba(59, 7, 100, 0.45),
+    0 0 0 1px rgba(255, 255, 255, 0.65) inset;
+  text-align: center;
+  animation: xepa-celebration-pop 0.45s cubic-bezier(0.22, 1.2, 0.36, 1) forwards;
+}
+
+@keyframes xepa-celebration-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.88) translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.xepa-celebration-mascot {
+  margin: 0 auto 0.35rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.xepa-celebration-mascot-emoji {
+  font-size: 2.5rem;
+  line-height: 1;
+  display: inline-block;
+  animation: xepa-celebration-bounce 0.9s ease-in-out infinite;
+}
+
+@keyframes xepa-celebration-bounce {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-6deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(6deg);
+  }
+}
+
+.xepa-celebration-title {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.2rem, 4.5vw, 1.45rem);
+  font-weight: 800;
+  line-height: 1.25;
+  color: #5b21b6;
+  text-wrap: balance;
+}
+
+.xepa-celebration-sub {
+  margin: 0 0 1rem;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: #4c1d95;
+  opacity: 0.92;
+  text-wrap: balance;
+}
+
+.xepa-celebration-preview-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #6b21a8;
+  margin-bottom: 0.4rem;
+}
+
+/* Mock “tela do app” — roxo + verde como no aiqfome */
+.xepa-aiq-preview-shell {
+  text-align: left;
+  background: #fff;
+  border-radius: 16px;
+  padding: 0.65rem 0.7rem 0.75rem;
+  margin-bottom: 1.1rem;
+  border: 1px solid #e9e4f4;
+  box-shadow: 0 6px 24px rgba(91, 33, 182, 0.1);
+}
+
+.xepa-aiq-preview-store-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 0.5rem 0.45rem 0.55rem;
+  margin-bottom: 0.55rem;
+  box-shadow: 0 2px 12px rgba(17, 24, 39, 0.06);
+  border: 1px solid #f3f0fa;
+}
+
+.xepa-aiq-preview-store-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45rem;
+  position: relative;
+}
+
+.xepa-aiq-preview-logo {
+  flex-shrink: 0;
+  width: 2.35rem;
+  height: 2.35rem;
+  border-radius: 10px;
+  background: linear-gradient(145deg, #7c3aed, #5b21b6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  box-shadow: 0 2px 8px rgba(91, 33, 182, 0.25);
+}
+
+.xepa-aiq-preview-store-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.xepa-aiq-preview-store-name {
+  font-size: 0.68rem;
+  font-weight: 800;
+  line-height: 1.25;
+  color: #111827;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  word-break: break-word;
+}
+
+.xepa-aiq-preview-delivery {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.2rem 0.35rem;
+  margin-top: 0.2rem;
+  font-size: 0.62rem;
+  color: #6b21a8;
+  font-weight: 600;
+}
+
+.xepa-aiq-preview-moto {
+  font-size: 0.75rem;
+  line-height: 1;
+}
+
+.xepa-aiq-preview-linkish {
+  color: #7c3aed;
+  font-weight: 700;
+}
+
+.xepa-aiq-preview-time {
+  color: #7c3aed;
+  opacity: 0.85;
+  font-weight: 600;
+}
+
+.xepa-aiq-preview-details {
+  flex-shrink: 0;
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: #7c3aed;
+  padding-top: 0.1rem;
+}
+
+.xepa-aiq-preview-search {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.65rem;
+  border-radius: 999px;
+  border: 2px solid #c4b5fd;
+  background: #fafafa;
+  margin-bottom: 0.6rem;
+}
+
+.xepa-aiq-preview-search-ico {
+  font-size: 0.75rem;
+  opacity: 0.85;
+}
+
+.xepa-aiq-preview-search-ph {
+  font-size: 0.65rem;
+  color: #9ca3af;
+  font-weight: 500;
+}
+
+.xepa-aiq-preview-cat-row {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-bottom: 0.15rem;
+}
+
+.xepa-aiq-preview-cat-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.15rem;
+  height: 1.15rem;
+  border-radius: 6px;
+  background: #ede9fe;
+  color: #5b21b6;
+  font-size: 0.65rem;
+  font-weight: 900;
+}
+
+.xepa-aiq-preview-cat-title {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #5b21b6;
+}
+
+.xepa-aiq-preview-cat-desc {
+  margin: 0 0 0.45rem;
+  font-size: 0.62rem;
+  line-height: 1.35;
+  color: #6b7280;
+}
+
+.xepa-aiq-preview-divider {
+  height: 1px;
+  background: #f3f4f6;
+  margin: 0.35rem 0 0.5rem;
+}
+
+.xepa-aiq-preview-item {
+  display: flex;
+  gap: 0.55rem;
+  align-items: flex-start;
+}
+
+.xepa-aiq-preview-thumb-wrap {
+  flex-shrink: 0;
+  width: 4.35rem;
+  height: 4.35rem;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f3f4f6;
+  border: 1px solid #eee;
+}
+
+.xepa-aiq-preview-thumb-wrap--placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(160deg, #f9fafb, #e5e7eb);
+  border: 1px dashed #d1d5db;
+}
+
+.xepa-aiq-preview-thumb-ph-ico {
+  font-size: 1.65rem;
+  line-height: 1;
+  opacity: 0.5;
+}
+
+.xepa-aiq-preview-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.xepa-aiq-preview-item-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.xepa-aiq-preview-item-title {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.2rem;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #111827;
+  line-height: 1.25;
+  margin-bottom: 0.25rem;
+}
+
+.xepa-aiq-preview-item-name-text {
+  word-break: break-word;
+  min-width: 0;
+}
+
+.xepa-aiq-preview-spark {
+  color: #22c55e;
+  font-size: 0.65rem;
+  line-height: 1.6;
+  flex-shrink: 0;
+}
+
+.xepa-aiq-preview-highlight-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.45rem;
+  margin-bottom: 0.2rem;
+}
+
+.xepa-aiq-preview-price-big {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #16a34a;
+  letter-spacing: -0.02em;
+}
+
+.xepa-aiq-preview-pct-pill {
+  display: inline-block;
+  padding: 0.12rem 0.35rem;
+  border-radius: 6px;
+  font-size: 0.58rem;
+  font-weight: 800;
+  color: #fff;
+  background: #22c55e;
+  line-height: 1.2;
+}
+
+.xepa-aiq-preview-was {
+  font-size: 0.65rem;
+  color: #9ca3af;
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+}
+
+.xepa-aiq-preview-depor {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.5rem;
+  font-size: 0.65rem;
+  margin-bottom: 0.2rem;
+}
+
+.xepa-aiq-preview-de {
+  color: #9ca3af;
+  font-weight: 600;
+}
+
+.xepa-aiq-preview-por {
+  color: #15803d;
+  font-weight: 700;
+}
+
+.xepa-aiq-preview-por strong {
+  font-weight: 800;
+  color: #16a34a;
+  font-size: 1.02em;
+}
+
+.xepa-aiq-preview-item-desc {
+  margin: 0;
+  font-size: 0.6rem;
+  line-height: 1.35;
+  color: #9ca3af;
+}
+
+.xepa-celebration-cta {
+  width: 100%;
+  max-width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .xepa-dashboard-inner--save-blur {
+    transition: none;
+  }
+
+  .xepa-celebration-overlay {
+    animation: none;
+    opacity: 1;
+  }
+
+  .xepa-celebration-modal {
+    animation: none;
+  }
+
+  .xepa-celebration-mascot-emoji {
+    animation: none;
+  }
+}
