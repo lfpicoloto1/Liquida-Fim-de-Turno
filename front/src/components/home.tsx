@@ -151,7 +151,17 @@ export function Home() {
     setLoading(true);
     setError(null);
     try {
+      const apiDebug = process.env.NEXT_PUBLIC_DEBUG_API === "true";
+      if (apiDebug && typeof window !== "undefined") {
+        console.info("[liquida/api] GET /api/me", {
+          browserUrl: `${window.location.origin}/api/me`,
+          note: "Same-origin é esperado; o Next reescreve no servidor para API_PROXY_URL.",
+        });
+      }
       const res = await fetch("/api/me", { credentials: "include" });
+      if (apiDebug) {
+        console.info("[liquida/api] /api/me response", { status: res.status, ok: res.ok });
+      }
       const data = (await res.json()) as MeResponse;
       setMe(data);
       if (data.authenticated) {
