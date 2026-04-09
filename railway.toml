@@ -5,6 +5,8 @@ builder = "DOCKERFILE"
 dockerfilePath = "docker/front/Dockerfile"
 
 [deploy]
+# Schema no Postgres antes de servir tráfego (DATABASE_URL no serviço, ex. referência ao plugin Postgres).
+preDeployCommand = "npm run db:push:deploy"
 healthcheckPath = "/api/health"
 healthcheckTimeout = 30
 restartPolicyType = "ON_FAILURE"
