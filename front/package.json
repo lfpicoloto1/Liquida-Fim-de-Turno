@@ -16,18 +16,20 @@
   },
   "dependencies": {
     "@aiqfome-org/geraldo-ui": "^0.1.2",
+    "canvas-confetti": "^1.9.4",
     "date-fns": "^4.1.0",
     "date-fns-tz": "^3.2.0",
     "lit": "^3.2.1",
     "next": "^15.5.4",
+    "prisma": "^6.19.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "zod": "^3.24.2",
-    "prisma": "^6.19.0"
+    "zod": "^3.24.2"
   },
   "devDependencies": {
-    "@prisma/client": "^6.19.0",
+    "@types/canvas-confetti": "^1.9.0",
     "@eslint/eslintrc": "^3.3.1",
+    "@prisma/client": "^6.19.0",
     "@types/node": "^22.14.0",
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.0",

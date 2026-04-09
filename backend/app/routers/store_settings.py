@@ -1,4 +1,5 @@
 import logging
+import random
 from typing import Any
 
 from fastapi import APIRouter, Depends, HTTPException
@@ -11,6 +12,7 @@ from app.config import get_settings
 from app.database import get_db
 from app.deps import session_store_id
 from app.ids import cuid
+from app.menu_promo import _name_from_list_row
 from app.models import JobState, Store, StoreSettings
 from app.promo_actions import get_access_token_for_store
 from app.temporal_admin import (
@@ -164,6 +166,80 @@ async def get_store_menu_categories(
             }
         )
     return {"categories": slim}
+
+
+@router.get("/api/store/menu-sample-item")
+async def get_store_menu_sample_item(
+    db: AsyncSession = Depends(get_db),
+    store_id: str = Depends(session_store_id),
+):
+    """
+    Um item aleatório do cardápio (nome + categoria) para prévias na UI.
+    Prioriza categorias marcadas em promoCategoryIds; senão percorre o cardápio.
+    """
+    s = get_settings()
+    store = (await db.execute(select(Store).where(Store.id == store_id))).scalar_one_or_none()
+    if not store:
+        raise HTTPException(status_code=404, detail="Loja não encontrada")
+    st = (await db.execute(select(StoreSettings).where(StoreSettings.storeId == store_id))).scalar_one_or_none()
+    promo_ids: list[int] = []
+    if st and st.promoCategoryIds:
+        promo_ids = [int(x) for x in st.promoCategoryIds if int(x) > 0]
+    try:
+        token = await get_access_token_for_store(s, store)
+        if not token:
+            raise HTTPException(status_code=401, detail=_AIQFOME_SESSION_TOKEN_MSG)
+
+        async def gt() -> str | None:
+            return token
+
+        client = AiqfomeClient(s, gt, allow_env_token_fallback=False)
+        rows = await client.list_menu_categories(store.externalStoreId)
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=502, detail=str(e)) from e
+
+    all_cats: list[dict[str, Any]] = []
+    seen_ids: set[Any] = set()
+    for r in rows:
+        if not isinstance(r, dict) or r.get("id") is None:
+            continue
+        rid = r.get("id")
+        if rid in seen_ids:
+            continue
+        seen_ids.add(rid)
+        all_cats.append(r)
+
+    want: set[int] | None = set(promo_ids) if promo_ids else None
+    cat_rows = [c for c in all_cats if want is None or int(c.get("id")) in want]
+    if not cat_rows:
+        cat_rows = all_cats
+
+    random.shuffle(cat_rows)
+    pool: list[tuple[str, str]] = []
+    max_fetch = 14
+    for c in cat_rows[:max_fetch]:
+        cid = c.get("id")
+        if cid is None:
+            continue
+        cname = str(c.get("name") or "").strip() or "Cardápio"
+        try:
+            items = await client.list_category_items(store.externalStoreId, int(cid))
+        except Exception:
+            log.warning("menu-sample-item: falha list_category_items cat=%s", cid, exc_info=True)
+            continue
+        for row in items:
+            if not isinstance(row, dict):
+                continue
+            n = _name_from_list_row(row)
+            if n:
+                pool.append((n, cname))
+
+    if not pool:
+        return {"name": None, "categoryName": None}
+    pick = random.choice(pool)
+    return {"name": pick[0], "categoryName": pick[1]}
 
 
 @router.patch("/api/settings")

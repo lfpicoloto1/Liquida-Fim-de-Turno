@@ -11,6 +11,7 @@ import {
 import { getDay } from "date-fns";
 import { toZonedTime } from "date-fns-tz";
 import { isTrustedOrigin } from "@/lib/auth/post-message";
+import { SaveSuccessCelebration } from "@/components/SaveSuccessCelebration";
 import {
   brazilTimeZoneSelectOptions,
   DEFAULT_BRAZIL_TIMEZONE,
@@ -135,7 +136,8 @@ export function Home() {
   const [menuCategories, setMenuCategories] = useState<MenuCategoryRow[] | null>(null);
   const [menuCategoriesError, setMenuCategoriesError] = useState<string | null>(null);
   const [promoCategories, setPromoCategories] = useState<Set<number>>(new Set());
-  const [saveSuccessMessage, setSaveSuccessMessage] = useState<string | null>(null);
+  const [showSaveCelebration, setShowSaveCelebration] = useState(false);
+  const [celebrationDiscount, setCelebrationDiscount] = useState(15);
 
   const devLoginEnabled = process.env.NEXT_PUBLIC_DEV_LOGIN === "true";
 
@@ -199,11 +201,9 @@ export function Home() {
     void refreshMe();
   }, [refreshMe]);
 
-  useEffect(() => {
-    if (!saveSuccessMessage) return;
-    const t = window.setTimeout(() => setSaveSuccessMessage(null), 5000);
-    return () => window.clearTimeout(t);
-  }, [saveSuccessMessage]);
+  const closeSaveCelebration = useCallback(() => {
+    setShowSaveCelebration(false);
+  }, []);
 
   const storeKey = me && me.authenticated ? me.store.id : null;
 
@@ -341,7 +341,9 @@ export function Home() {
   const save = async () => {
     setSaving(true);
     setError(null);
-    setSaveSuccessMessage(null);
+    const started = Date.now();
+    const savedDiscount = discount;
+    const MIN_CELEBRATION_MS = 480;
     try {
       const res = await fetch("/api/settings", {
         method: "PATCH",
@@ -363,7 +365,10 @@ export function Home() {
         return;
       }
       await refreshMe();
-      setSaveSuccessMessage("Salvou certinho! Suas configs já estão guardadas na loja.");
+      const elapsed = Date.now() - started;
+      await new Promise((r) => window.setTimeout(r, Math.max(0, MIN_CELEBRATION_MS - elapsed)));
+      setCelebrationDiscount(savedDiscount);
+      setShowSaveCelebration(true);
     } finally {
       setSaving(false);
     }
@@ -507,11 +512,11 @@ export function Home() {
 
   return (
     <main className="xepa-dashboard">
-      <div className="xepa-dashboard-inner">
+      <div
+        className={`xepa-dashboard-inner${showSaveCelebration ? " xepa-dashboard-inner--save-blur" : ""}`}
+        aria-hidden={showSaveCelebration}
+      >
         <div className="xepa-toast-stack" aria-live="polite" aria-relevant="additions text">
-          {saveSuccessMessage ? (
-            <div className="xepa-toast-fixed xepa-toast-fixed--success">{saveSuccessMessage}</div>
-          ) : null}
           {error ? <div className="xepa-toast-fixed xepa-toast-fixed--error">{error}</div> : null}
         </div>
 
@@ -859,6 +864,12 @@ export function Home() {
           </geraldo-button>
         </div>
       </div>
+      <SaveSuccessCelebration
+        open={showSaveCelebration}
+        discountPercent={celebrationDiscount}
+        onClose={closeSaveCelebration}
+        storeLabel={me.store.displayName ?? me.store.externalStoreId}
+      />
     </main>
   );
 }
