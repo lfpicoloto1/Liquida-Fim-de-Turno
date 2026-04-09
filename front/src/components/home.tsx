@@ -1,5 +1,6 @@
 "use client";
 
+import "@/lib/geraldo-define-client";
 import {
   useCallback,
   useEffect,
@@ -12,6 +13,7 @@ import Link from "next/link";
 import { getDay } from "date-fns";
 import { toZonedTime } from "date-fns-tz";
 import { isTrustedOrigin } from "@/lib/auth/post-message";
+import { GeraldoButton } from "@/components/GeraldoButton";
 import { LoginMarketingCarousel } from "@/components/LoginMarketingCarousel";
 import { SaveSuccessCelebration } from "@/components/SaveSuccessCelebration";
 import {
@@ -31,7 +33,9 @@ const DAYS: { bit: number; label: string }[] = [
 
 const DAY_MOOD_ICONS = ["🥐", "☕", "🌮", "🥗", "🍝", "🍔", "🍕"] as const;
 
-const CATEGORY_FOOD_ICONS = ["🍔", "🍕", "🥤", "🌮", "🍜", "🥙", "🧁", "🍟"] as const;
+/** Texto único: fluxo do app (hero logado + card de login). Sem “sobre”; “sobras” trocado por liquidação. */
+const XEPA_FLOW_DESCRIPTION =
+  "Em poucos passos: defina o percentual de desconto da liquidação, escolha em quais categorias do cardápio a promoção vale e, por fim, ajuste com quanto tempo de antecedência ao fechamento da loja as ofertas passam a aparecer no aiqfome. Depois é só salvar.";
 
 function subtractMinutesFromHHMM(hhmm: string, leadMin: number): string {
   const [h, m] = hhmm.split(":").map((x) => Number(x));
@@ -457,9 +461,8 @@ export function Home() {
 
           <section className="xepa-hero xepa-login-hero" aria-label="Boas-vindas">
             <h1 className="xepa-hero-title">Hora da Xepa começa aqui 🔥</h1>
-            <p className="xepa-hero-sub">
-              Entra com Magalu ID e deixa a gente cuidar do desconto de fim de dia — sobra vira oportunidade, não
-              estresse.
+            <p className="xepa-hero-sub xepa-login-hero-tagline">
+              Use o Magalu ID (o mesmo da aiqfome) para entrar e configurar tudo no painel abaixo.
             </p>
           </section>
 
@@ -473,31 +476,18 @@ export function Home() {
               </geraldo-text>
             </div>
             <div className="xepa-widget-body xepa-widget-body--tight">
+              <p className="xepa-hero-sub xepa-login-flow-intro">{XEPA_FLOW_DESCRIPTION}</p>
               <geraldo-text variant="body" weight="regular">
                 É o mesmo login Magalu ID que você já usa com a aiqfome. Sem firula: popup, autoriza, pronto.
               </geraldo-text>
               <div className="xepa-login-actions">
-                <geraldo-button
-                  className="xepa-login-primary"
-                  type="button"
-                  variant="filled"
-                  color="secondary"
-                  size="lg"
-                  onClick={openMagalu}
-                >
+                <GeraldoButton type="button" variant="filled" color="primary" size="lg" onClick={openMagalu}>
                   Entrar com Magalu ID
-                </geraldo-button>
+                </GeraldoButton>
                 {devLoginEnabled ? (
-                  <geraldo-button
-                    className="xepa-login-dev"
-                    type="button"
-                    variant="outline"
-                    color="secondary"
-                    size="lg"
-                    onClick={devLogin}
-                  >
+                  <GeraldoButton type="button" variant="outline" color="primary" size="lg" onClick={devLogin}>
                     Entrar (dev)
-                  </geraldo-button>
+                  </GeraldoButton>
                 ) : null}
               </div>
               <p className="xepa-login-footnote">
@@ -537,9 +527,7 @@ export function Home() {
             <div className="xepa-hero-top">
               <div>
                 <h1 className="xepa-hero-title">Hora da Xepa! 🔥 Zere sua vitrine no aiqfome</h1>
-                <p className="xepa-hero-sub">
-                  Vamos dar um gás nas vendas do fim do dia e transformar sobras em lucro! Vamo que vamo!
-                </p>
+                <p className="xepa-hero-sub">{XEPA_FLOW_DESCRIPTION}</p>
                 <div className="xepa-store-chip">
                   <geraldo-badge tone="primary">{me.store.displayName ?? me.store.externalStoreId}</geraldo-badge>
                 </div>
@@ -598,17 +586,13 @@ export function Home() {
 
             <geraldo-card className="xepa-widget xepa-widget--categories" elevation="2" radius="lg">
               <div slot="header" className="xepa-widget-header">
-                <span className="xepa-widget-emoji" aria-hidden>
-                  🍽️
-                </span>
                 <geraldo-text variant="h3-section" weight="medium">
                   Categorias do desconto
                 </geraldo-text>
               </div>
               <div className="xepa-widget-body xepa-widget-body--tight">
-                <h2 className="xepa-categories-headline">Selecione as categorias para o desconto</h2>
                 <p className="muted" style={{ margin: 0, fontSize: "0.95rem" }}>
-                  Clica nas pílulas onde o desconto vai valer.
+                  Clique nas opções abaixo onde o desconto deve valer.
                 </p>
                 {menuCategoriesError ? <p className="error">{menuCategoriesError}</p> : null}
                 {menuCategories === null && storeKey && !menuCategoriesError ? (
@@ -617,7 +601,6 @@ export function Home() {
                 {menuCategories && menuCategories.length > 0 ? (
                   <div className="xepa-pill-grid xepa-pill-grid--spacious">
                     {menuCategories.map((c) => {
-                      const icon = CATEGORY_FOOD_ICONS[Math.abs(c.id) % CATEGORY_FOOD_ICONS.length];
                       const pressed = promoCategories.has(c.id);
                       return (
                         <button
@@ -627,11 +610,8 @@ export function Home() {
                           aria-pressed={pressed}
                           onClick={() => togglePromoCategory(c.id)}
                         >
-                          <span className="xepa-pill-icon">{icon}</span>
-                          <span>
-                            {c.name ?? `#${c.id}`}
-                            {c.status && c.status !== "AVAILABLE" ? ` (${c.status})` : ""}
-                          </span>
+                          {c.name ?? `#${c.id}`}
+                          {c.status && c.status !== "AVAILABLE" ? ` (${c.status})` : ""}
                         </button>
                       );
                     })}
@@ -861,27 +841,12 @@ export function Home() {
         </nav>
 
         <div className="xepa-fab-bar" role="group" aria-label="Salvar ou sair">
-          <geraldo-button
-            className="xepa-fab-cancel"
-            type="button"
-            variant="outline"
-            color="secondary"
-            size="lg"
-            onClick={logout}
-          >
+          <GeraldoButton type="button" variant="outline" color="primary" size="lg" onClick={logout}>
             Deixa pra lá
-          </geraldo-button>
-          <geraldo-button
-            className="xepa-fab-save"
-            type="button"
-            variant="filled"
-            color="secondary"
-            size="lg"
-            loading={saving}
-            onClick={save}
-          >
+          </GeraldoButton>
+          <GeraldoButton type="button" variant="filled" color="primary" size="lg" loading={saving} onClick={save}>
             Salvar descontos!
-          </geraldo-button>
+          </GeraldoButton>
         </div>
       </div>
       <SaveSuccessCelebration

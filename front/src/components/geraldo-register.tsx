@@ -1,14 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
+import "@/lib/geraldo-define-client";
 
 export function GeraldoRegister() {
-  useEffect(() => {
-    void import("@aiqfome-org/geraldo-ui").then((m) => {
-      if (typeof m.defineGeraldoUI === "function") {
-        m.defineGeraldoUI();
-      }
-    });
-  }, []);
   return null;
 }

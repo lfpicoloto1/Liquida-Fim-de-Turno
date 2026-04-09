@@ -101,6 +101,24 @@ class Settings(BaseSettings):
     def is_production(self) -> bool:
         return self.node_env == "production"
 
+    @property
+    def session_cookie_secure(self) -> bool:
+        """Cookie HttpOnly com Secure + SameSite=None em HTTPS (Railway). Ative FORCE se o Python não tiver NODE_ENV=production."""
+        import os
+
+        if self.is_production:
+            return True
+        return os.environ.get("SESSION_COOKIE_FORCE_SECURE", "").strip().lower() in (
+            "1",
+            "true",
+            "yes",
+            "on",
+        )
+
+    @property
+    def session_cookie_samesite(self) -> str:
+        return "none" if self.session_cookie_secure else "lax"
+
     def encryption_key_hex(self) -> str:
         if self.token_encryption_key:
             return self.token_encryption_key

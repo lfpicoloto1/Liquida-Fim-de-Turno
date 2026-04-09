@@ -1,5 +1,6 @@
 "use client";
 
+import { GeraldoButton } from "@/components/GeraldoButton";
 import { useEffect, useRef, useState } from "react";
 
 const PREVIEW_BASE_PRICE = 35;
@@ -200,16 +201,16 @@ export function SaveSuccessCelebration({
           </div>
         </div>
 
-        <geraldo-button
+        <GeraldoButton
           className="xepa-celebration-cta"
           type="button"
           variant="filled"
-          color="secondary"
+          color="primary"
           size="lg"
           onClick={() => onClose()}
         >
           Voltar pro painel
-        </geraldo-button>
+        </GeraldoButton>
       </div>
     </div>
   );

@@ -69,7 +69,7 @@ async def magalu_token(
         await db.commit()
 
         resp = JSONResponse({"ok": True, "dev": True})
-        _set_session_cookie(resp, sess.id, s.is_production)
+        _set_session_cookie(resp, sess.id, s)
         return resp
 
     redirect_uri = body.redirectUri or s.magalu_redirect_uri or ""
@@ -133,7 +133,7 @@ async def magalu_token(
         await db.commit()
 
         resp = JSONResponse({"ok": True})
-        _set_session_cookie(resp, sess.id, s.is_production)
+        _set_session_cookie(resp, sess.id, s)
         return resp
     except HTTPException:
         raise
@@ -148,13 +148,15 @@ def _session_expiry():
     return datetime.now(timezone.utc) + timedelta(seconds=SESSION_MAX_AGE_SEC)
 
 
-def _set_session_cookie(resp: JSONResponse, session_id: str, secure: bool) -> None:
+def _set_session_cookie(resp: JSONResponse, session_id: str, s: Settings) -> None:
+    """SameSite=None + Secure quando em produção/HTTPS para Set-Cookie em fetch cross-origin (Geraldo → Liquida)."""
+    secure = s.session_cookie_secure
     resp.set_cookie(
         SESSION_COOKIE,
         session_id,
         httponly=True,
         secure=secure,
-        samesite="lax",
+        samesite=s.session_cookie_samesite,
         max_age=SESSION_MAX_AGE_SEC,
         path="/",
     )
