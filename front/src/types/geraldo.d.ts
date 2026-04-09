@@ -11,6 +11,7 @@ declare module "react" {
         color?: string;
         size?: string;
         loading?: boolean;
+        disabled?: boolean;
       };
       "geraldo-text": Base & { variant?: string; weight?: string; as?: string };
       "geraldo-badge": Base & { tone?: string };
