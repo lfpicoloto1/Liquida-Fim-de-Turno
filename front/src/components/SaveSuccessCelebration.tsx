@@ -192,7 +192,9 @@ export function SaveSuccessCelebration({
                 </span>
               </div>
               <p className="xepa-aiq-preview-item-desc">
-                Exemplo com preço ilustrativo — no app entra o valor real do item.
+                <strong>Só um exemplo visual:</strong> o nome acima pode ser um item aleatório do seu cardápio para você
+                ver o estilo da oferta. O <strong>mesmo desconto vale para todos os itens</strong> das categorias que
+                você marcou — no app aiqfome cada produto mostra o <strong>preço real</strong> dele com a promo.
               </p>
             </div>
           </div>

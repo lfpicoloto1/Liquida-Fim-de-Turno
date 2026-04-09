@@ -115,6 +115,78 @@ body {
   max-width: none;
 }
 
+.xepa-login-carousel {
+  width: 100%;
+  margin-bottom: 1.1rem;
+}
+
+.xepa-login-carousel-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  max-height: min(52vw, 280px);
+  border-radius: 16px;
+  overflow: hidden;
+  background: linear-gradient(160deg, #1e0a3a 0%, #312e81 100%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+}
+
+.xepa-login-carousel-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.55s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.xepa-login-carousel-slide--active {
+  opacity: 1;
+  z-index: 1;
+}
+
+.xepa-login-carousel-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+.xepa-login-carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.45rem;
+  margin-top: 0.5rem;
+}
+
+.xepa-login-carousel-dot {
+  width: 0.48rem;
+  height: 0.48rem;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.35);
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.xepa-login-carousel-dot:hover {
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.xepa-login-carousel-dot--active {
+  background: #fef08a;
+  transform: scale(1.25);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .xepa-login-carousel-slide {
+    transition: none;
+  }
+}
+
 .xepa-login-card {
   width: 100%;
 }
@@ -1211,9 +1283,14 @@ label.stack.xepa-lead-field {
 
 .xepa-aiq-preview-item-desc {
   margin: 0;
-  font-size: 0.6rem;
-  line-height: 1.35;
-  color: #9ca3af;
+  font-size: 0.62rem;
+  line-height: 1.45;
+  color: #78716c;
+}
+
+.xepa-aiq-preview-item-desc strong {
+  color: #57534e;
+  font-weight: 800;
 }
 
 .xepa-celebration-cta {
