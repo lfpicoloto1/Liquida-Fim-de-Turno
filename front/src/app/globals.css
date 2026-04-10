@@ -867,6 +867,18 @@ label.stack.xepa-lead-field {
   animation: xepa-celebration-bounce 0.9s ease-in-out infinite;
 }
 
+.xepa-celebration-mascot--quiet .xepa-celebration-mascot-emoji {
+  animation: none;
+}
+
+.xepa-promo-off-modal {
+  max-height: min(88vh, 520px);
+}
+
+.xepa-promo-off-sub {
+  text-align: left;
+}
+
 @keyframes xepa-celebration-bounce {
   0%,
   100% {

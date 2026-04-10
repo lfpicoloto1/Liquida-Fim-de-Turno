@@ -15,6 +15,7 @@ import { toZonedTime } from "date-fns-tz";
 import { isTrustedOrigin } from "@/lib/auth/post-message";
 import { GeraldoButton } from "@/components/GeraldoButton";
 import { LoginMarketingCarousel } from "@/components/LoginMarketingCarousel";
+import { SavePromoOffAfterSave } from "@/components/SavePromoOffAfterSave";
 import { SaveSuccessCelebration } from "@/components/SaveSuccessCelebration";
 import {
   brazilTimeZoneSelectOptions,
@@ -143,6 +144,7 @@ export function Home() {
   const [menuCategoriesError, setMenuCategoriesError] = useState<string | null>(null);
   const [promoCategories, setPromoCategories] = useState<Set<number>>(new Set());
   const [showSaveCelebration, setShowSaveCelebration] = useState(false);
+  const [showSavePromoOffNotice, setShowSavePromoOffNotice] = useState(false);
   const [celebrationDiscount, setCelebrationDiscount] = useState(15);
 
   const devLoginEnabled = process.env.NEXT_PUBLIC_DEV_LOGIN === "true";
@@ -209,6 +211,10 @@ export function Home() {
 
   const closeSaveCelebration = useCallback(() => {
     setShowSaveCelebration(false);
+  }, []);
+
+  const closeSavePromoOffNotice = useCallback(() => {
+    setShowSavePromoOffNotice(false);
   }, []);
 
   const storeKey = me && me.authenticated ? me.store.id : null;
@@ -349,6 +355,7 @@ export function Home() {
     setError(null);
     const started = Date.now();
     const savedDiscount = discount;
+    const savedRoutineEnabled = routine;
     const MIN_CELEBRATION_MS = 480;
     try {
       const res = await fetch("/api/settings", {
@@ -373,8 +380,12 @@ export function Home() {
       await refreshMe();
       const elapsed = Date.now() - started;
       await new Promise((r) => window.setTimeout(r, Math.max(0, MIN_CELEBRATION_MS - elapsed)));
-      setCelebrationDiscount(savedDiscount);
-      setShowSaveCelebration(true);
+      if (savedRoutineEnabled) {
+        setCelebrationDiscount(savedDiscount);
+        setShowSaveCelebration(true);
+      } else {
+        setShowSavePromoOffNotice(true);
+      }
     } finally {
       setSaving(false);
     }
@@ -515,8 +526,10 @@ export function Home() {
   return (
     <main className="xepa-dashboard">
       <div
-        className={`xepa-dashboard-inner${showSaveCelebration ? " xepa-dashboard-inner--save-blur" : ""}`}
-        aria-hidden={showSaveCelebration}
+        className={`xepa-dashboard-inner${
+          showSaveCelebration || showSavePromoOffNotice ? " xepa-dashboard-inner--save-blur" : ""
+        }`}
+        aria-hidden={showSaveCelebration || showSavePromoOffNotice}
       >
         <div className="xepa-toast-stack" aria-live="polite" aria-relevant="additions text">
           {error ? <div className="xepa-toast-fixed xepa-toast-fixed--error">{error}</div> : null}
@@ -855,6 +868,7 @@ export function Home() {
         onClose={closeSaveCelebration}
         storeLabel={me.store.displayName ?? me.store.externalStoreId}
       />
+      <SavePromoOffAfterSave open={showSavePromoOffNotice} onClose={closeSavePromoOffNotice} />
     </main>
   );
 }
