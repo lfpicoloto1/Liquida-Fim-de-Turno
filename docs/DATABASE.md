@@ -100,7 +100,7 @@ Formato atual (`v` = 1):
 - **`v`**: `1`
 - **`items`**: mapa `itemUuid` → mapa `itemSizeId` (string) → `{ "value", "promotional_value" }` (strings como retornadas no [show item](https://developer.aiqfome.com/docs/api/v2/show-item); `promotional_value` pode ser `null` no JSON salvo como ausência).
 
-Gravado **antes** dos `PUT` de aplicação; a rotina de desconto usa `value` como preço de lista e define `promotional_value` com o percentual configurado. Na **reversão**, o PUT restaura só o `value` do snapshot e envia `promotional_value` **nulo** (remove qualquer promo na API), sem reutilizar o `promotional_value` antigo do baseline.
+Gravado **antes** dos `PUT` de aplicação; a rotina de desconto usa `value` como preço de lista e define `promotional_value` com o percentual configurado. Na **reversão**, o PUT restaura só o `value` do snapshot e envia `promotional_value` **0** (a API V2 não remove promo com `null`), sem reutilizar o `promotional_value` antigo do baseline.
 
 ### `Session`
 

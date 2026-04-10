@@ -409,8 +409,8 @@ def build_apply_put_body(sizes_map: dict[str, Any], percent: Any) -> dict[str, A
 def build_revert_put_body(sizes_map: dict[str, Any]) -> dict[str, Any] | None:
     """
     Reversão / fim de promo: restaura só o preço de lista (`value`) do baseline e **remove** promo na API
-    (`promotional_value` = null). Não reaproveita `promotional_value` gravado no snapshot — evita voltar a um
-    desconto antigo se o % mudou entre um apply e outro.
+    com `promotional_value` = 0 (a API não remove promo com `null`). Não reaproveita `promotional_value`
+    gravado no snapshot — evita voltar a um desconto antigo se o % mudou entre um apply e outro.
     """
     sizes_map = _sizes_map_without_meta(sizes_map)
     item_sizes: list[dict[str, Any]] = []
@@ -424,7 +424,7 @@ def build_revert_put_body(sizes_map: dict[str, Any]) -> dict[str, Any] | None:
         if v is None:
             continue
         item_sizes.append(
-            {"id": sid, "value": _money_float(v), "promotional_value": None}
+            {"id": sid, "value": _money_float(v), "promotional_value": _money_float(Decimal("0"))}
         )
     if not item_sizes:
         return None
