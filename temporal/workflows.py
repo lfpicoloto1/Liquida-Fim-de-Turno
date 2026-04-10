@@ -23,9 +23,9 @@ with workflow.unsafe.imports_passed_through():
         revert_promo_menu_item_activity,
     )
 
-_RETRY = RetryPolicy(maximum_attempts=5, initial_interval=timedelta(seconds=10))
+_RETRY = RetryPolicy(maximum_attempts=10, initial_interval=timedelta(seconds=10))
 _RETRY_OAUTH_REFRESH = RetryPolicy(maximum_attempts=4, initial_interval=timedelta(seconds=30))
-_ACTIVITY_TIMEOUT = timedelta(minutes=5)
+_ACTIVITY_TIMEOUT = timedelta(minutes=15)
 _OAUTH_REFRESH_ACTIVITY_TIMEOUT = timedelta(minutes=30)
 _IDLE = timedelta(hours=1)
 
