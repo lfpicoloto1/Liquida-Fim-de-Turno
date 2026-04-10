@@ -260,7 +260,7 @@ class AiqfomeClient:
                         "sku": "DRY-SZ",
                         "status": "AVAILABLE",
                         "value": "10.00",
-                        "promotional_value": None,
+                        "promotional_value": "0.00",
                     }
                 ],
                 "menu_category_id": 1656271,
